@@ -1,10 +1,5 @@
-﻿-- Exported from QuickDBD: https://www.quickdatabasediagrams.com/
--- Link to schema: https://app.quickdatabasediagrams.com/#/d/Q72Dmn
--- NOTE! If you have used non-SQL datatypes in your design, you will have to change these here.
-
-
 CREATE TABLE "employees" (
-    "emp_no" SERIAL   NOT NULL,
+    "emp_no" SERIAL PRIMARY KEY,
     "first_name" CHAR   NOT NULL,
     "last_name" CHAR   NOT NULL,
     "email" CHAR   NOT NULL,
@@ -14,38 +9,26 @@ CREATE TABLE "employees" (
     "ssn" INT   NOT NULL,
     "salary" NUMERIC   NOT NULL,
     "title" CHAR   NOT NULL,
-    "password" CHAR   NOT NULL,
-    CONSTRAINT "pk_employees" PRIMARY KEY (
-        "emp_no"
-     )
+    "password" CHAR   NOT NULL
 );
 
 CREATE TABLE "managers" (
-    "manager_no" SERIAL   NOT NULL,
-    "emp_no" INT   NOT NULL,
-    CONSTRAINT "pk_managers" PRIMARY KEY (
-        "manager_no"
-     )
+    "manager_no" SERIAL PRIMARY KEY,
+    "emp_no" INT NOT NULL
 );
 
 CREATE TABLE "employee_manager" (
-    "emp_man" SERIAL   NOT NULL,
-    "manager_no" INT   NOT NULL,
-    "emp_no" INT   NOT NULL,
-    CONSTRAINT "pk_employee_manager" PRIMARY KEY (
-        "emp_man"
-     )
+    "emp_man" SERIAL PRIMARY KEY,
+    "manager_no" INT NOT NULL,
+    "emp_no" INT NOT NULL
 );
 
 CREATE TABLE "requests" (
-    "request_no" SERIAL   NOT NULL,
+    "request_no" SERIAL PRIMARY KEY,
     "emp_no" INT   NOT NULL,
     "amount" NUMERIC   NOT NULL,
     "reciept" CHAR   NOT NULL,
-    "status" CHAR   NOT NULL,
-    CONSTRAINT "pk_requests" PRIMARY KEY (
-        "request_no"
-     )
+    "status" CHAR NOT NULL
 );
 
 ALTER TABLE "managers" ADD CONSTRAINT "fk_managers_emp_no" FOREIGN KEY("emp_no")
@@ -59,4 +42,3 @@ REFERENCES "employees" ("emp_no");
 
 ALTER TABLE "requests" ADD CONSTRAINT "fk_requests_emp_no" FOREIGN KEY("emp_no")
 REFERENCES "employees" ("emp_no");
-
