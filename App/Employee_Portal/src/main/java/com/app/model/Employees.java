@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class Employees {
 
-	private int employeeNum;
+	private int employeeId;
 	private String firstName;
 	private String lastName;
 	private String email;
@@ -21,10 +21,10 @@ public class Employees {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Employees(int employeeNum, String firstName, String lastName, String email, long phone, String gender,
+	public Employees(int employeeId, String firstName, String lastName, String email, long phone, String gender,
 			Date dob, long ssn, double salary, String title, String password) {
 		super();
-		this.employeeNum = employeeNum;
+		this.employeeId = employeeId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
@@ -37,12 +37,12 @@ public class Employees {
 		this.password = password;
 	}
 
-	public int getEmployeeNum() {
-		return employeeNum;
+	public int getEmployeeId() {
+		return employeeId;
 	}
 
-	public void setEmployeeNum(int employeeNum) {
-		this.employeeNum = employeeNum;
+	public void setEmployeeId(int employeeId) {
+		this.employeeId = employeeId;
 	}
 
 	public String getFirstName() {
@@ -131,7 +131,7 @@ public class Employees {
 		int result = 1;
 		result = prime * result + ((dob == null) ? 0 : dob.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + employeeNum;
+		result = prime * result + employeeId;
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + ((gender == null) ? 0 : gender.hashCode());
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
@@ -164,7 +164,7 @@ public class Employees {
 				return false;
 		} else if (!email.equals(other.email))
 			return false;
-		if (employeeNum != other.employeeNum)
+		if (employeeId != other.employeeId)
 			return false;
 		if (firstName == null) {
 			if (other.firstName != null)
@@ -202,7 +202,7 @@ public class Employees {
 
 	@Override
 	public String toString() {
-		return "Employees [employeeNum=" + employeeNum + ", firstName=" + firstName + ", lastName=" + lastName
+		return "Employees [employeeId=" + employeeId + ", firstName=" + firstName + ", lastName=" + lastName
 				+ ", email=" + email + ", phone=" + phone + ", gender=" + gender + ", dob=" + dob + ", ssn=" + ssn
 				+ ", salary=" + salary + ", title=" + title + ", password=" + password + "]";
 	}

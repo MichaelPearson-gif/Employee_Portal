@@ -2,42 +2,42 @@ package com.app.model;
 
 public class Managers {
 
-	private int managerNum;
-	private int employeeNum;
+	private int managerId;
+	private int employeeId;
 	
 	public Managers() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Managers(int managerNum, int employeeNum) {
+	public Managers(int managerId, int employeeId) {
 		super();
-		this.managerNum = managerNum;
-		this.employeeNum = employeeNum;
+		this.managerId = managerId;
+		this.employeeId = employeeId;
 	}
 
-	public int getManagerNum() {
-		return managerNum;
+	public int getManagerId() {
+		return managerId;
 	}
 
-	public void setManagerNum(int managerNum) {
-		this.managerNum = managerNum;
+	public void setManagerId(int managerId) {
+		this.managerId = managerId;
 	}
 
-	public int getEmployeeNum() {
-		return employeeNum;
+	public int getEmployeeId() {
+		return employeeId;
 	}
 
-	public void setEmployeeNum(int employeeNum) {
-		this.employeeNum = employeeNum;
+	public void setEmployeeId(int employeeId) {
+		this.employeeId = employeeId;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + employeeNum;
-		result = prime * result + managerNum;
+		result = prime * result + employeeId;
+		result = prime * result + managerId;
 		return result;
 	}
 
@@ -50,16 +50,16 @@ public class Managers {
 		if (getClass() != obj.getClass())
 			return false;
 		Managers other = (Managers) obj;
-		if (employeeNum != other.employeeNum)
+		if (employeeId != other.employeeId)
 			return false;
-		if (managerNum != other.managerNum)
+		if (managerId != other.managerId)
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Managers [managerNum=" + managerNum + ", employeeNum=" + employeeNum + "]";
+		return "Managers [managerId=" + managerId + ", employeeId=" + employeeId + "]";
 	}
 	
 }
