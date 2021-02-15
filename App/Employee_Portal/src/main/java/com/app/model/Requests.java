@@ -6,6 +6,7 @@ public class Requests {
 
 	private int requestId;
 	private int employeeId;
+	private int managerId;
 	private double amount;
 	private String reciept;
 	private String status;
@@ -16,10 +17,12 @@ public class Requests {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Requests(int requestId, int employeeId, double amount, String reciept, String status, Date date) {
+	public Requests(int requestId, int employeeId, int managerId, double amount, String reciept, String status,
+			Date date) {
 		super();
 		this.requestId = requestId;
 		this.employeeId = employeeId;
+		this.managerId = managerId;
 		this.amount = amount;
 		this.reciept = reciept;
 		this.status = status;
@@ -40,6 +43,14 @@ public class Requests {
 
 	public void setEmployeeId(int employeeId) {
 		this.employeeId = employeeId;
+	}
+
+	public int getManagerId() {
+		return managerId;
+	}
+
+	public void setManagerId(int managerId) {
+		this.managerId = managerId;
 	}
 
 	public double getAmount() {
@@ -83,6 +94,7 @@ public class Requests {
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + ((date == null) ? 0 : date.hashCode());
 		result = prime * result + employeeId;
+		result = prime * result + managerId;
 		result = prime * result + ((reciept == null) ? 0 : reciept.hashCode());
 		result = prime * result + requestId;
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
@@ -107,6 +119,8 @@ public class Requests {
 			return false;
 		if (employeeId != other.employeeId)
 			return false;
+		if (managerId != other.managerId)
+			return false;
 		if (reciept == null) {
 			if (other.reciept != null)
 				return false;
@@ -124,8 +138,8 @@ public class Requests {
 
 	@Override
 	public String toString() {
-		return "Requests [requestId=" + requestId + ", employeeId=" + employeeId + ", amount=" + amount + ", reciept="
-				+ reciept + ", status=" + status + ", date=" + date + "]";
+		return "Requests [requestId=" + requestId + ", employeeId=" + employeeId + ", managerId=" + managerId
+				+ ", amount=" + amount + ", reciept=" + reciept + ", status=" + status + ", date=" + date + "]";
 	}
 	
 }

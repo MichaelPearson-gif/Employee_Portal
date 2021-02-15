@@ -1,5 +1,5 @@
 CREATE TABLE employees (
-    emp_no SERIAL PRIMARY KEY,
+    emp_id SERIAL PRIMARY KEY,
     first_name CHAR(15) NOT NULL,
     last_name CHAR(15) NOT NULL,
     email CHAR(30) NOT NULL,
@@ -13,19 +13,20 @@ CREATE TABLE employees (
 );
 
 CREATE TABLE managers (
-    manager_no SERIAL PRIMARY KEY,
-    emp_no INT NOT NULL REFERENCES employees(emp_no)
+    manager_id SERIAL PRIMARY KEY,
+    emp_id INT NOT NULL REFERENCES employees(emp_id)
 );
 
 CREATE TABLE employee_manager (
-    emp_man SERIAL PRIMARY KEY,
-    manager_no INT NOT NULL REFERENCES managers(manager_no),
-    emp_no INT NOT NULL REFERENCES employees(emp_no)
+    emp_man_id SERIAL PRIMARY KEY,
+    manager_id INT NOT NULL REFERENCES managers(manager_id),
+    emp_id INT NOT NULL REFERENCES employees(emp_id)
 );
 
 CREATE TABLE requests (
-    request_no SERIAL PRIMARY KEY,
-    emp_no INT NOT NULL REFERENCES employees(emp_no),
+    request_id SERIAL PRIMARY KEY,
+    emp_id INT NOT NULL REFERENCES employees(emp_id),
+    manager_id INT REFERENCES managers(manager_id),
     amount NUMERIC NOT NULL,
     reciept CHAR NOT NULL,
     status CHAR(10) NOT NULL,
@@ -33,11 +34,11 @@ CREATE TABLE requests (
 );
 
 -- Alter the sequences of the serial id's
-ALTER SEQUENCE employees_emp_no_seq RESTART WITH 1000 INCREMENT BY 1;
-ALTER SEQUENCE managers_manager_no_seq RESTART WITH 2000 INCREMENT BY 1;
-ALTER SEQUENCE employee_manager_emp_man_seq RESTART WITH 3000 INCREMENT BY 1;
+ALTER SEQUENCE employees_emp_id_seq RESTART WITH 1000 INCREMENT BY 1;
+ALTER SEQUENCE managers_manager_id_seq RESTART WITH 2000 INCREMENT BY 1;
+ALTER SEQUENCE employee_manager_emp_man_id_seq RESTART WITH 3000 INCREMENT BY 1;
 -- Only need to restart the requests id sequence in case I need to restart from 1
-ALTER SEQUENCE requests_request_no_seq RESTART WITH 1 INCREMENT BY 1;
+ALTER SEQUENCE requests_request_id_seq RESTART WITH 1 INCREMENT BY 1;
 
 -- Only for major restructuring use only
 DROP TABLE employees CASCADE;
