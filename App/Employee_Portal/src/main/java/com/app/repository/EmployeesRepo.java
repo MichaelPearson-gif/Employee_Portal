@@ -20,4 +20,7 @@ public interface EmployeesRepo {
 	// Employee updates their info
 	Employees updateInfo(Employees employee);
 	
+	// List of all employees and their managers
+	List<String> employeeList();
+	
 }
