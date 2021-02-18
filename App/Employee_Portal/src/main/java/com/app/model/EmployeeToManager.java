@@ -4,18 +4,18 @@ public class EmployeeToManager {
 
 	private int jointId;
 	private int managerId;
-	private int employeeId;
+	private String email;
 	
 	public EmployeeToManager() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public EmployeeToManager(int jointId, int managerId, int employeeId) {
+	public EmployeeToManager(int jointId, int managerId, String email) {
 		super();
 		this.jointId = jointId;
 		this.managerId = managerId;
-		this.employeeId = employeeId;
+		this.email = email;
 	}
 
 	public int getJointId() {
@@ -34,19 +34,19 @@ public class EmployeeToManager {
 		this.managerId = managerId;
 	}
 
-	public int getEmployeeId() {
-		return employeeId;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setEmployeeId(int employeeId) {
-		this.employeeId = employeeId;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + employeeId;
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + jointId;
 		result = prime * result + managerId;
 		return result;
@@ -61,7 +61,10 @@ public class EmployeeToManager {
 		if (getClass() != obj.getClass())
 			return false;
 		EmployeeToManager other = (EmployeeToManager) obj;
-		if (employeeId != other.employeeId)
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
 			return false;
 		if (jointId != other.jointId)
 			return false;
@@ -72,8 +75,6 @@ public class EmployeeToManager {
 
 	@Override
 	public String toString() {
-		return "EmployeeToManager [jointId=" + jointId + ", managerId=" + managerId + ", employeeId=" + employeeId
-				+ "]";
-	}
-	
+		return "EmployeeToManager [jointId=" + jointId + ", managerId=" + managerId + ", email=" + email + "]";
+	}	
 }
