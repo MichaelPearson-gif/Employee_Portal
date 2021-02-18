@@ -4,10 +4,9 @@ import java.sql.Date;
 
 public class Employees {
 
-	private int employeeId;
+	private String email;
 	private String firstName;
 	private String lastName;
-	private String email;
 	private long phone;
 	private String gender;
 	private Date dob;
@@ -21,13 +20,12 @@ public class Employees {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Employees(int employeeId, String firstName, String lastName, String email, long phone, String gender,
-			Date dob, long ssn, double salary, String title, String password) {
+	public Employees(String email, String firstName, String lastName, long phone, String gender, Date dob, long ssn,
+			double salary, String title, String password) {
 		super();
-		this.employeeId = employeeId;
+		this.email = email;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.email = email;
 		this.phone = phone;
 		this.gender = gender;
 		this.dob = dob;
@@ -37,12 +35,12 @@ public class Employees {
 		this.password = password;
 	}
 
-	public int getEmployeeId() {
-		return employeeId;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setEmployeeId(int employeeId) {
-		this.employeeId = employeeId;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getFirstName() {
@@ -59,14 +57,6 @@ public class Employees {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 	public long getPhone() {
@@ -131,7 +121,6 @@ public class Employees {
 		int result = 1;
 		result = prime * result + ((dob == null) ? 0 : dob.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + employeeId;
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + ((gender == null) ? 0 : gender.hashCode());
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
@@ -163,8 +152,6 @@ public class Employees {
 			if (other.email != null)
 				return false;
 		} else if (!email.equals(other.email))
-			return false;
-		if (employeeId != other.employeeId)
 			return false;
 		if (firstName == null) {
 			if (other.firstName != null)
@@ -202,9 +189,8 @@ public class Employees {
 
 	@Override
 	public String toString() {
-		return "Employees [employeeId=" + employeeId + ", firstName=" + firstName + ", lastName=" + lastName
-				+ ", email=" + email + ", phone=" + phone + ", gender=" + gender + ", dob=" + dob + ", ssn=" + ssn
-				+ ", salary=" + salary + ", title=" + title + ", password=" + password + "]";
-	}
-	
+		return "Employees [email=" + email + ", firstName=" + firstName + ", lastName=" + lastName + ", phone=" + phone
+				+ ", gender=" + gender + ", dob=" + dob + ", ssn=" + ssn + ", salary=" + salary + ", title=" + title
+				+ ", password=" + password + "]";
+	}	
 }
