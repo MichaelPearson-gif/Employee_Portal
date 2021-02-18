@@ -3,17 +3,17 @@ package com.app.model;
 public class Managers {
 
 	private int managerId;
-	private int employeeId;
+	private String email;
 	
 	public Managers() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Managers(int managerId, int employeeId) {
+	public Managers(int managerId, String email) {
 		super();
 		this.managerId = managerId;
-		this.employeeId = employeeId;
+		this.email = email;
 	}
 
 	public int getManagerId() {
@@ -24,19 +24,19 @@ public class Managers {
 		this.managerId = managerId;
 	}
 
-	public int getEmployeeId() {
-		return employeeId;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setEmployeeId(int employeeId) {
-		this.employeeId = employeeId;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + employeeId;
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + managerId;
 		return result;
 	}
@@ -50,7 +50,10 @@ public class Managers {
 		if (getClass() != obj.getClass())
 			return false;
 		Managers other = (Managers) obj;
-		if (employeeId != other.employeeId)
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
 			return false;
 		if (managerId != other.managerId)
 			return false;
@@ -59,7 +62,6 @@ public class Managers {
 
 	@Override
 	public String toString() {
-		return "Managers [managerId=" + managerId + ", employeeId=" + employeeId + "]";
-	}
-	
+		return "Managers [managerId=" + managerId + ", email=" + email + "]";
+	}	
 }
