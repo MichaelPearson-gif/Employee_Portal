@@ -5,7 +5,7 @@ import java.sql.Date;
 public class Requests {
 
 	private int requestId;
-	private int employeeId;
+	private String email;
 	private int managerId;
 	private double amount;
 	private String reciept;
@@ -17,11 +17,11 @@ public class Requests {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Requests(int requestId, int employeeId, int managerId, double amount, String reciept, String status,
+	public Requests(int requestId, String email, int managerId, double amount, String reciept, String status,
 			Date date) {
 		super();
 		this.requestId = requestId;
-		this.employeeId = employeeId;
+		this.email = email;
 		this.managerId = managerId;
 		this.amount = amount;
 		this.reciept = reciept;
@@ -37,12 +37,12 @@ public class Requests {
 		this.requestId = requestId;
 	}
 
-	public int getEmployeeId() {
-		return employeeId;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setEmployeeId(int employeeId) {
-		this.employeeId = employeeId;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public int getManagerId() {
@@ -93,7 +93,7 @@ public class Requests {
 		temp = Double.doubleToLongBits(amount);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + ((date == null) ? 0 : date.hashCode());
-		result = prime * result + employeeId;
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + managerId;
 		result = prime * result + ((reciept == null) ? 0 : reciept.hashCode());
 		result = prime * result + requestId;
@@ -117,7 +117,10 @@ public class Requests {
 				return false;
 		} else if (!date.equals(other.date))
 			return false;
-		if (employeeId != other.employeeId)
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
 			return false;
 		if (managerId != other.managerId)
 			return false;
@@ -138,8 +141,7 @@ public class Requests {
 
 	@Override
 	public String toString() {
-		return "Requests [requestId=" + requestId + ", employeeId=" + employeeId + ", managerId=" + managerId
-				+ ", amount=" + amount + ", reciept=" + reciept + ", status=" + status + ", date=" + date + "]";
-	}
-	
+		return "Requests [requestId=" + requestId + ", email=" + email + ", managerId=" + managerId + ", amount="
+				+ amount + ", reciept=" + reciept + ", status=" + status + ", date=" + date + "]";
+	}	
 }
