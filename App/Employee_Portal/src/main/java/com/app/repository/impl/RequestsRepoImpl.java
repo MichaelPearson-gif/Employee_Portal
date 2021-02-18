@@ -14,19 +14,19 @@ public class RequestsRepoImpl implements RequestsRepo {
 	}
 
 	@Override
-	public List<Requests> pendingRequests(int employeeId) {
+	public List<Requests> pendingRequests(String email) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Requests> resolvedRequests(int employeeId) {
+	public List<Requests> resolvedRequests(String email) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public int updateRequest(int employeeId, String status, int managerId) {
+	public int updateRequest(String email, String status, int managerId) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

@@ -10,13 +10,13 @@ public interface RequestsRepo {
 	int newRequest(Requests request);
 	
 	// Employee and manager views all there pending 
-	List<Requests> pendingRequests(int employeeId);
+	List<Requests> pendingRequests(String email);
 	
 	// Employee views all resolved requests
-	List<Requests> resolvedRequests(int employeeId);
+	List<Requests> resolvedRequests(String email);
 	
 	// Managers can approve or deny requests
-	int updateRequest(int employeeId, String status, int managerId);
+	int updateRequest(String email, String status, int managerId);
 	
 	// Managers view all pending requests of their employees
 	List<Requests> managersEmployeesPendingRequests(int managerId);

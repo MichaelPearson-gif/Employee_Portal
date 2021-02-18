@@ -8,13 +8,7 @@ import com.app.repository.EmployeesRepo;
 public class EmployeesRepoImpl implements EmployeesRepo {
 
 	@Override
-	public Employees getInfo(int employeeId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<String> allEmails() {
+	public Employees getInfo(String email) {
 		// TODO Auto-generated method stub
 		return null;
 	}
