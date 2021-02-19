@@ -2,17 +2,37 @@ package com.app.model;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "employees", schema = "employee_portal")
 public class Employees {
 
+	// Mapping each field with their respective columns and column names with the @Column(name = "")
+	// Email is the primary key in the table, so it needs the @Id annotation
+	@Column(name = "email")
+	@Id
 	private String email;
+	@Column(name = "first_name")
 	private String firstName;
+	@Column(name = "last_name")
 	private String lastName;
+	@Column(name = "phone")
 	private long phone;
+	@Column(name = "gender")
 	private String gender;
+	@Column(name = "birthday")
 	private Date dob;
+	@Column(name = "ssn")
 	private long ssn;
+	@Column(name = "salary")
 	private double salary;
+	@Column(name = "title")
 	private String title;
+	@Column(name = "emp_password")
 	private String password;
 	
 	public Employees() {

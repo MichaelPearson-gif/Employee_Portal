@@ -2,14 +2,37 @@ package com.app.model;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "requests", schema = "employee_portal")
 public class Requests {
 
+	// Mapping each field with their respective columns and column names with the @Column(name = "")
+	// requestId is the primary key in the table, so it needs the @Id annotation
+	// requestId is also a serial type in the DB, so I need the @GeneratedValue and @SequenceGenerator
+	// @SequenceGenerator will correspond with the sequence constraints I created
+	@Column(name = "request_id")
+	@Id
+	@GeneratedValue(generator = "requests_request_id_seq")
+	@SequenceGenerator(allocationSize = 1, name = "requests_request_id_seq", sequenceName = "requests_request_id_seq")
 	private int requestId;
+	@Column(name = "email")
 	private String email;
+	@Column(name = "manager_id")
 	private int managerId;
+	@Column(name = "amount")
 	private double amount;
+	@Column(name = "reciept")
 	private String reciept;
+	@Column(name = "status")
 	private String status;
+	@Column(name = "dates")
 	private Date date;
 	
 	public Requests() {
