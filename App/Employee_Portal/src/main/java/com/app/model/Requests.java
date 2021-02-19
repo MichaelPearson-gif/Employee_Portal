@@ -13,10 +13,12 @@ import javax.persistence.Table;
 @Table(name = "requests", schema = "employee_portal")
 public class Requests {
 
-	// Mapping each field with their respective columns and column names with the @Column(name = "")
-	// requestId is the primary key in the table, so it needs the @Id annotation
-	// requestId is also a serial type in the DB, so I need the @GeneratedValue and @SequenceGenerator
-	// @SequenceGenerator will correspond with the sequence constraints I created
+	/*
+	 *  Mapping each field with their respective columns and column names with the @Column(name = "")
+	 *  requestId is the primary key in the table, so it needs the @Id annotation
+	 *  requestId is also a serial type in the DB, so I need the @GeneratedValue and @SequenceGenerator
+	 *  @SequenceGenerator will correspond with the sequence constraints I created
+	 */
 	@Column(name = "request_id")
 	@Id
 	@GeneratedValue(generator = "requests_request_id_seq")
