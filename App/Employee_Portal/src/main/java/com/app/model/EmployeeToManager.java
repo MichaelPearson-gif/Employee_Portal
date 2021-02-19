@@ -1,9 +1,30 @@
 package com.app.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "employee_manager", schema = "employee_portal")
 public class EmployeeToManager {
 
+	/*
+	 *  Mapping each field with their respective columns and column names with the @Column(name = "")
+	 *  managerId is the primary key in the table, so it needs the @Id annotation
+	 *  managerId is also a serial type in the DB, so I need the @GeneratedValue and @SequenceGenerator
+	 *  @SequenceGenerator will correspond with the sequence constraints I created
+	 */
+	@Column(name = "emp_man_id")
+	@Id
+	@GeneratedValue(generator = "employee_manager_emp_man_id_seq")
+	@SequenceGenerator(initialValue = 1000, allocationSize = 1, name = "employee_manager_emp_man_id_seq", sequenceName = "employee_manager_emp_man_id_seq")
 	private int jointId;
+	@Column(name = "manager_id")
 	private int managerId;
+	@Column(name = "email")
 	private String email;
 	
 	public EmployeeToManager() {
