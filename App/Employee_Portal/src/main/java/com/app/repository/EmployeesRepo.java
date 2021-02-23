@@ -9,8 +9,6 @@ public interface EmployeesRepo {
 	// Employee can view their info
 	Employees getInfo(String email);
 	
-	// Get Employee email & password to verify login credentials
-	
 	// Get the password associated with the employee email
 	String getPassword(String email);
 	

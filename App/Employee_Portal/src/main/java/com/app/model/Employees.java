@@ -53,7 +53,7 @@ public class Employees {
 	}
 
 	public Employees(String email, String firstName, String lastName, long phone, String gender, Date dob, long ssn,
-			double salary, String title, String password) {
+			double salary, String title, String password, Set<Managers> managers) {
 		super();
 		this.email = email;
 		this.firstName = firstName;
@@ -65,6 +65,7 @@ public class Employees {
 		this.salary = salary;
 		this.title = title;
 		this.password = password;
+		this.managers = managers;
 	}
 
 	public String getEmail() {
@@ -147,6 +148,14 @@ public class Employees {
 		this.password = password;
 	}
 
+	public Set<Managers> getManagers() {
+		return managers;
+	}
+
+	public void setManagers(Set<Managers> managers) {
+		this.managers = managers;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -156,6 +165,7 @@ public class Employees {
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + ((gender == null) ? 0 : gender.hashCode());
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+		result = prime * result + ((managers == null) ? 0 : managers.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + (int) (phone ^ (phone >>> 32));
 		long temp;
@@ -200,6 +210,11 @@ public class Employees {
 				return false;
 		} else if (!lastName.equals(other.lastName))
 			return false;
+		if (managers == null) {
+			if (other.managers != null)
+				return false;
+		} else if (!managers.equals(other.managers))
+			return false;
 		if (password == null) {
 			if (other.password != null)
 				return false;
@@ -223,6 +238,7 @@ public class Employees {
 	public String toString() {
 		return "Employees [email=" + email + ", firstName=" + firstName + ", lastName=" + lastName + ", phone=" + phone
 				+ ", gender=" + gender + ", dob=" + dob + ", ssn=" + ssn + ", salary=" + salary + ", title=" + title
-				+ ", password=" + password + "]";
-	}	
+				+ ", password=" + password + ", managers=" + managers + "]";
+	}
+
 }
