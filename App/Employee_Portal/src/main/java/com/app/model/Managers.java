@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -22,18 +24,19 @@ public class Managers {
 	@GeneratedValue(generator = "managers_manager_id_seq")
 	@SequenceGenerator(initialValue = 100, allocationSize = 1, name = "managers_manager_id_seq", sequenceName = "managers_manager_id_seq")
 	private int managerId;
-	@Column(name = "email")
-	private String email;
+	@JoinColumn(name = "email")
+	@OneToOne
+	private Employees employee;
 	
 	public Managers() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Managers(int managerId, String email) {
+	public Managers(int managerId, Employees employee) {
 		super();
 		this.managerId = managerId;
-		this.email = email;
+		this.employee = employee;
 	}
 
 	public int getManagerId() {
@@ -44,19 +47,19 @@ public class Managers {
 		this.managerId = managerId;
 	}
 
-	public String getEmail() {
-		return email;
+	public Employees getEmployee() {
+		return employee;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setEmployee(Employees employee) {
+		this.employee = employee;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((employee == null) ? 0 : employee.hashCode());
 		result = prime * result + managerId;
 		return result;
 	}
@@ -70,10 +73,10 @@ public class Managers {
 		if (getClass() != obj.getClass())
 			return false;
 		Managers other = (Managers) obj;
-		if (email == null) {
-			if (other.email != null)
+		if (employee == null) {
+			if (other.employee != null)
 				return false;
-		} else if (!email.equals(other.email))
+		} else if (!employee.equals(other.employee))
 			return false;
 		if (managerId != other.managerId)
 			return false;
@@ -82,6 +85,7 @@ public class Managers {
 
 	@Override
 	public String toString() {
-		return "Managers [managerId=" + managerId + ", email=" + email + "]";
-	}	
+		return "Managers [managerId=" + managerId + ", employee=" + employee + "]";
+	}
+
 }
