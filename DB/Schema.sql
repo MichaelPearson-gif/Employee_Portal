@@ -17,9 +17,8 @@ CREATE TABLE managers (
 );
 
 CREATE TABLE employee_manager (
-    manager_id INT NOT NULL REFERENCES managers(manager_id),
-    email CHAR(30) NOT NULL REFERENCES employees(email),
-    CONSTRAINT employee_manager_pk PRIMARY KEY(manager_id, email)
+	email CHAR(30) NOT NULL PRIMARY KEY REFERENCES employees(email),
+    manager_id INT NOT NULL REFERENCES managers(manager_id)
 );
 
 CREATE TABLE requests (
