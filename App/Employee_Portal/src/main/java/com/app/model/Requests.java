@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -17,17 +19,21 @@ public class Requests {
 	 *  Mapping each field with their respective columns and column names with the @Column(name = "")
 	 *  requestId is the primary key in the table, so it needs the @Id annotation
 	 *  requestId is also a serial type in the DB, so I need the @GeneratedValue and @SequenceGenerator
-	 *  @SequenceGenerator will correspond with the sequence constraints I created
+	 *  @SequenceGenerator will correspond with the sequence constraints I created.
+	 *  
+	 *  Both employee and manager are many-to-one relationships with the requests table.
 	 */
 	@Column(name = "request_id")
 	@Id
 	@GeneratedValue(generator = "requests_request_id_seq")
 	@SequenceGenerator(allocationSize = 1, name = "requests_request_id_seq", sequenceName = "requests_request_id_seq")
 	private int requestId;
-	@Column(name = "email")
-	private String email;
-	@Column(name = "manager_id")
-	private int managerId;
+	@JoinColumn(name = "email")
+	@ManyToOne
+	private Employees employee;
+	@JoinColumn(name = "manager_id")
+	@ManyToOne
+	private Managers manager;
 	@Column(name = "amount")
 	private double amount;
 	@Column(name = "reciept")
@@ -42,12 +48,12 @@ public class Requests {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Requests(int requestId, String email, int managerId, double amount, String reciept, String status,
+	public Requests(int requestId, Employees employee, Managers manager, double amount, String reciept, String status,
 			Date date) {
 		super();
 		this.requestId = requestId;
-		this.email = email;
-		this.managerId = managerId;
+		this.employee = employee;
+		this.manager = manager;
 		this.amount = amount;
 		this.reciept = reciept;
 		this.status = status;
@@ -62,20 +68,20 @@ public class Requests {
 		this.requestId = requestId;
 	}
 
-	public String getEmail() {
-		return email;
+	public Employees getEmployee() {
+		return employee;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setEmployee(Employees employee) {
+		this.employee = employee;
 	}
 
-	public int getManagerId() {
-		return managerId;
+	public Managers getManager() {
+		return manager;
 	}
 
-	public void setManagerId(int managerId) {
-		this.managerId = managerId;
+	public void setManager(Managers manager) {
+		this.manager = manager;
 	}
 
 	public double getAmount() {
@@ -118,8 +124,8 @@ public class Requests {
 		temp = Double.doubleToLongBits(amount);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + ((date == null) ? 0 : date.hashCode());
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + managerId;
+		result = prime * result + ((employee == null) ? 0 : employee.hashCode());
+		result = prime * result + ((manager == null) ? 0 : manager.hashCode());
 		result = prime * result + ((reciept == null) ? 0 : reciept.hashCode());
 		result = prime * result + requestId;
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
@@ -142,12 +148,15 @@ public class Requests {
 				return false;
 		} else if (!date.equals(other.date))
 			return false;
-		if (email == null) {
-			if (other.email != null)
+		if (employee == null) {
+			if (other.employee != null)
 				return false;
-		} else if (!email.equals(other.email))
+		} else if (!employee.equals(other.employee))
 			return false;
-		if (managerId != other.managerId)
+		if (manager == null) {
+			if (other.manager != null)
+				return false;
+		} else if (!manager.equals(other.manager))
 			return false;
 		if (reciept == null) {
 			if (other.reciept != null)
@@ -166,7 +175,8 @@ public class Requests {
 
 	@Override
 	public String toString() {
-		return "Requests [requestId=" + requestId + ", email=" + email + ", managerId=" + managerId + ", amount="
+		return "Requests [requestId=" + requestId + ", employee=" + employee + ", manager=" + manager + ", amount="
 				+ amount + ", reciept=" + reciept + ", status=" + status + ", date=" + date + "]";
-	}	
+	}
+
 }

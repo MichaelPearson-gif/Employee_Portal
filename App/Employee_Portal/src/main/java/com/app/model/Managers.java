@@ -24,6 +24,8 @@ public class Managers {
 	@GeneratedValue(generator = "managers_manager_id_seq")
 	@SequenceGenerator(initialValue = 100, allocationSize = 1, name = "managers_manager_id_seq", sequenceName = "managers_manager_id_seq")
 	private int managerId;
+	
+	// Relationship between Employees to Manager is one-to-one
 	@JoinColumn(name = "email")
 	@OneToOne
 	private Employees employee;
