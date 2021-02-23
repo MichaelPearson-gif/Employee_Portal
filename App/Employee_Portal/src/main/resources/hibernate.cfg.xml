@@ -23,7 +23,6 @@
 		<property name="hibernate.hbm2ddl.auto">validate</property>
 		<!-- Need to tell Hibernate where the mapped resources are; it doesn't auto detect the resources. -->
 		<mapping class="com.app.model.Employees"/>
-		<mapping class="com.app.model.EmployeeToManager"/>
 		<mapping class="com.app.model.Managers"/>
 		<mapping class="com.app.model.Requests"/>
 	</session-factory>
