@@ -1,10 +1,14 @@
 package com.app.model;
 
 import java.sql.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -34,6 +38,14 @@ public class Employees {
 	private String title;
 	@Column(name = "emp_password")
 	private String password;
+	
+	/*
+	 * Creating a way to reference my joint table
+	 * The relationship is one-to-many because each employee has 1 manager, but managers have multiple employees
+	 */
+	@OneToMany
+	@JoinTable(name = "employee_manager", joinColumns = {@JoinColumn(name = "email")}, inverseJoinColumns = {@JoinColumn(name = "manager_id")})
+	private Set<Managers> managers;
 	
 	public Employees() {
 		super();
