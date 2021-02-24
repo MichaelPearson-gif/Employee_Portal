@@ -24,7 +24,7 @@ public interface RequestsRepo {
 	List<Requests> managersEmployeesPendingRequests(int managerId) throws EmptyListException;
 	
 	// Managers can view all resolved requests
-	List<Requests> allResolvedRequests();
+	List<Requests> allResolvedRequests() throws EmptyListException;
 	
 	// Managers can view all reciept images
 	List<String> recieptImages();

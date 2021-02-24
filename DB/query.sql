@@ -14,3 +14,6 @@ WHERE em.manager_id IN (
 	WHERE manager_id = 100
 );
 
+-- Getting all records and ordering by manager_id
+SELECT * FROM employee_manager 
+ORDER BY manager_id;
