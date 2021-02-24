@@ -2,12 +2,13 @@ package com.app.repository;
 
 import java.util.List;
 
+import com.app.exceptions.BusinessException;
 import com.app.model.Employees;
 
 public interface EmployeesRepo {
 
 	// Employee can view their info
-	Employees getInfo(String email);
+	Employees getInfo(String email) throws BusinessException;
 	
 	// Get the password associated with the employee email
 	String getPassword(String email);
