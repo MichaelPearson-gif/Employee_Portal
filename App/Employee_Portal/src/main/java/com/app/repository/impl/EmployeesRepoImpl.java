@@ -6,8 +6,8 @@ import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-
 import com.app.exceptions.BusinessException;
+import com.app.exceptions.InvalidLoginException;
 import com.app.model.Employees;
 import com.app.repository.EmployeesRepo;
 import com.app.repository.util.HibernateSessionFactory;
@@ -20,14 +20,17 @@ public class EmployeesRepoImpl implements EmployeesRepo {
 	@Override
 	public Employees getInfo(String email) throws BusinessException {
 		
+		// Initial employee object
 		Employees employee = new Employees();
 		
 		try(Session session = HibernateSessionFactory.getSession()){
 			
 			Transaction tx = session.beginTransaction();
 			
+			// Query the DB and set the result to the employee object
 			employee = session.get(Employees.class, email);
 			
+			// Commit the transaction
 			tx.commit();
 			
 		}catch(HibernateException e) {
@@ -42,9 +45,30 @@ public class EmployeesRepoImpl implements EmployeesRepo {
 	}
 
 	@Override
-	public String getPassword(String email) {
-		// TODO Auto-generated method stub
-		return null;
+	public String getPassword(String email) throws InvalidLoginException {
+		
+		// Initial password variable
+		String password = null;
+		
+		try(Session session = HibernateSessionFactory.getSession()){
+			
+			Transaction tx = session.beginTransaction();
+			
+			// Created a HQL query to get the password from the DB associated with the email input
+			// Had to caste to String since .createQuery returns a query type
+			password = (String) session.createQuery("SELECT password FROM employees e WHERE e.email = :email").setParameter("email", email).uniqueResult();
+			
+			tx.commit();
+			
+		}catch(HibernateException e) {
+			
+			// Log the error message
+			log.trace(e.getMessage());
+			throw new InvalidLoginException("Could not find a password for " + email);
+			
+		}
+		
+		return password;
 	}
 
 	@Override
