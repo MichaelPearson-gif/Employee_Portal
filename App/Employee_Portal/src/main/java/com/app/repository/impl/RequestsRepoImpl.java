@@ -164,9 +164,40 @@ public class RequestsRepoImpl implements RequestsRepo {
 	}
 
 	@Override
-	public List<Requests> managersEmployeesPendingRequests(int managerId) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Requests> managersEmployeesPendingRequests(int managerId) throws EmptyListException {
+		
+		// Initial list
+		List<Requests> myEmployeesPendingRequests = new ArrayList<>();
+		
+		try (Session session = HibernateSessionFactory.getSession()) {
+			
+			// Begin a transaction
+			tx = session.beginTransaction();
+			
+			// Query the DB for all pending requests for employees under a manager id
+			// Append to the myEmployeesPendingRequests list
+			myEmployeesPendingRequests = session.createQuery("FROM requests r INNER JOIN employee_manager em"
+					+ " ON r.email = em.email WHERE em.manager_id IN ("
+					+ "SELECT manager_id FROM managers WHERE manager_id = :manager_id)")
+					.setParameter("manager_id", managerId).getResultList();
+			
+			// Commit the transaction
+			tx.commit();
+			
+		}catch (HibernateException e) {
+
+			// Log the error message
+			log.trace(e.getMessage());
+			
+			// Rollback the transaction
+			tx.rollback();
+			
+			// Throw new exception
+			throw new EmptyListException("Could not retrieve list of employee pending requests.");
+
+		}
+		
+		return myEmployeesPendingRequests;
 	}
 
 	@Override

@@ -21,7 +21,7 @@ public interface RequestsRepo {
 	void updateRequest(Requests request) throws BusinessException;
 	
 	// Managers view all pending requests of their employees
-	List<Requests> managersEmployeesPendingRequests(int managerId);
+	List<Requests> managersEmployeesPendingRequests(int managerId) throws EmptyListException;
 	
 	// Managers can view all resolved requests
 	List<Requests> allResolvedRequests();
