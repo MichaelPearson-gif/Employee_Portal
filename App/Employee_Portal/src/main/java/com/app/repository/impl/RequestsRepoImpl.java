@@ -2,6 +2,7 @@ package com.app.repository.impl;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -10,6 +11,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.app.exceptions.BusinessException;
+import com.app.exceptions.EmptyListException;
 import com.app.model.Requests;
 import com.app.repository.RequestsRepo;
 import com.app.repository.util.HibernateSessionFactory;
@@ -39,6 +41,9 @@ public class RequestsRepoImpl implements RequestsRepo {
 			// Set the date field in the request object to the current date
 			request.setDate(today);
 			
+			// Set the status to Pending
+			request.setStatus("Pending");
+			
 			// Persist the request
 			session.save(request);
 			
@@ -61,9 +66,37 @@ public class RequestsRepoImpl implements RequestsRepo {
 	}
 
 	@Override
-	public List<Requests> pendingRequests(String email) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Requests> pendingRequests(String email) throws EmptyListException {
+		
+		// Initial list
+		List<Requests> myPendingRequests = new ArrayList<>();
+		
+		try (Session session = HibernateSessionFactory.getSession()) {
+			
+			// Begin a transaction
+			tx = session.beginTransaction();
+			
+			// Query the DB for all pending requests for an employee and append it to myPendingRequests
+			myPendingRequests = session.createQuery("FROM requests WHERE email = :email AND status = Pending")
+					.setParameter("email", email).getResultList();
+			
+			// Commit the transaction
+			tx.commit();
+			
+		}catch (HibernateException e) {
+
+			// Log the error message
+			log.trace(e.getMessage());
+			
+			// Rollback the transaction
+			tx.rollback();
+			
+			// Throw new exception
+			throw new EmptyListException("Could not retrieve list of employees.");
+
+		}
+		
+		return myPendingRequests;
 	}
 
 	@Override

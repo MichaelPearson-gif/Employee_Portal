@@ -3,6 +3,7 @@ package com.app.repository;
 import java.util.List;
 
 import com.app.exceptions.BusinessException;
+import com.app.exceptions.EmptyListException;
 import com.app.model.Requests;
 
 public interface RequestsRepo {
@@ -11,7 +12,7 @@ public interface RequestsRepo {
 	void newRequest(Requests request) throws BusinessException;
 	
 	// Employee and manager views all there pending 
-	List<Requests> pendingRequests(String email);
+	List<Requests> pendingRequests(String email) throws EmptyListException;
 	
 	// Employee views all resolved requests
 	List<Requests> resolvedRequests(String email);
