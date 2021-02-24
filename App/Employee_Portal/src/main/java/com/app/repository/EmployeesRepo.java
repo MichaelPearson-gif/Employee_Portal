@@ -18,6 +18,6 @@ public interface EmployeesRepo {
 	void updateInfo(Employees employee) throws BusinessException;
 	
 	// List of all employees and their managers
-	List<String> employeeList();
+	List<String> employeeList() throws BusinessException;
 	
 }

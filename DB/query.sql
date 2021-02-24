@@ -1,6 +1,5 @@
-SELECT first_name, last_name
-FROM employees
-WHERE email IN (
-	SELECT email 
-	FROM employee_manager
-);
+SELECT CONCAT(e.first_name, e.last_name) 
+FROM employees e
+INNER JOIN employee_manager em
+ON e.email = em.email;
+
