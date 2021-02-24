@@ -15,7 +15,7 @@ public interface RequestsRepo {
 	List<Requests> pendingRequests(String email) throws EmptyListException;
 	
 	// Employee views all resolved requests
-	List<Requests> resolvedRequests(String email);
+	List<Requests> resolvedRequests(String email) throws EmptyListException;
 	
 	// Managers can approve or deny requests
 	void updateRequest(String email, String status, int managerId);

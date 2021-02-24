@@ -92,7 +92,7 @@ public class RequestsRepoImpl implements RequestsRepo {
 			tx.rollback();
 			
 			// Throw new exception
-			throw new EmptyListException("Could not retrieve list of employees.");
+			throw new EmptyListException("Could not retrieve list of pending requests.");
 
 		}
 		
@@ -100,9 +100,37 @@ public class RequestsRepoImpl implements RequestsRepo {
 	}
 
 	@Override
-	public List<Requests> resolvedRequests(String email) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Requests> resolvedRequests(String email) throws EmptyListException {
+		
+		// Initial list
+		List<Requests> myResolvedRequests = new ArrayList<>();
+		
+		try (Session session = HibernateSessionFactory.getSession()) {
+			
+			// Begin a transaction
+			tx = session.beginTransaction();
+			
+			// Query the DB for all pending requests for an employee and append it to myPendingRequests
+			myResolvedRequests = session.createQuery("FROM requests WHERE email = :email AND status != Pending")
+					.setParameter("email", email).getResultList();
+			
+			// Commit the transaction
+			tx.commit();
+			
+		}catch (HibernateException e) {
+
+			// Log the error message
+			log.trace(e.getMessage());
+			
+			// Rollback the transaction
+			tx.rollback();
+			
+			// Throw new exception
+			throw new EmptyListException("Could not retrieve list of resolved requests.");
+
+		}
+		
+		return myResolvedRequests;
 	}
 
 	@Override
