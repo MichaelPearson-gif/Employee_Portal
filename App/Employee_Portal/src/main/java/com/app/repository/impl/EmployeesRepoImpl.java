@@ -19,6 +19,9 @@ public class EmployeesRepoImpl implements EmployeesRepo {
 
 	// Log variable
 	Logger log = Logger.getLogger(EmployeesRepoImpl.class);
+	
+	// Transaction variable
+	Transaction tx;
 
 	@Override
 	public Employees getInfo(String email) throws BusinessException {
@@ -29,7 +32,7 @@ public class EmployeesRepoImpl implements EmployeesRepo {
 		try (Session session = HibernateSessionFactory.getSession()) {
 
 			// Begin a transaction
-			Transaction tx = session.beginTransaction();
+			tx = session.beginTransaction();
 
 			// Query the DB and set the result to the employee object
 			employee = session.get(Employees.class, email);
@@ -41,6 +44,11 @@ public class EmployeesRepoImpl implements EmployeesRepo {
 
 			// Log the error message
 			log.trace(e.getMessage());
+			
+			// Rollback the transaction
+			tx.rollback();
+			
+			// Throw new exception
 			throw new BusinessException("Could not find and employee with the email: " + email);
 
 		}
@@ -57,7 +65,7 @@ public class EmployeesRepoImpl implements EmployeesRepo {
 		try (Session session = HibernateSessionFactory.getSession()) {
 
 			// Begin a transaction
-			Transaction tx = session.beginTransaction();
+			tx = session.beginTransaction();
 
 			// Created a HQL query to get the password from the DB associated with the email
 			// input
@@ -72,6 +80,11 @@ public class EmployeesRepoImpl implements EmployeesRepo {
 
 			// Log the error message
 			log.trace(e.getMessage());
+			
+			// Rollback the transaction
+			tx.rollback();
+			
+			// Throw new exception
 			throw new InvalidLoginException("Could not find a password for " + email);
 
 		}
@@ -85,7 +98,7 @@ public class EmployeesRepoImpl implements EmployeesRepo {
 		try (Session session = HibernateSessionFactory.getSession()) {
 
 			// Begin a transaction
-			Transaction tx = session.beginTransaction();
+			tx = session.beginTransaction();
 
 			// Update the record
 			session.update(employee);
@@ -97,6 +110,11 @@ public class EmployeesRepoImpl implements EmployeesRepo {
 
 			// Log the error message
 			log.trace(e.getMessage());
+			
+			// Rollback the transaction
+			tx.rollback();
+			
+			// Throw new exception
 			throw new BusinessException(
 					"An internal error has occured, please check the changed value for any errors.");
 
@@ -113,7 +131,7 @@ public class EmployeesRepoImpl implements EmployeesRepo {
 		try (Session session = HibernateSessionFactory.getSession()) {
 
 			// Begin a transaction
-			Transaction tx = session.beginTransaction();
+			tx = session.beginTransaction();
 
 			// Query the DB for a list of employees ordered by manager and append it to the
 			// allEmployees list
@@ -128,6 +146,11 @@ public class EmployeesRepoImpl implements EmployeesRepo {
 
 			// Log the error message
 			log.trace(e.getMessage());
+			
+			// Rollback the transaction
+			tx.rollback();
+			
+			// Throw new exception
 			throw new EmptyListException("Could not retrieve list of employees.");
 
 		}
@@ -144,7 +167,7 @@ public class EmployeesRepoImpl implements EmployeesRepo {
 		try (Session session = HibernateSessionFactory.getSession()) {
 
 			// Begin a transaction
-			Transaction tx = session.beginTransaction();
+			tx = session.beginTransaction();
 
 			// Query the DB for a list of employees ordered by manager and append it to the
 			// allEmployees list
@@ -159,6 +182,11 @@ public class EmployeesRepoImpl implements EmployeesRepo {
 
 			// Log the error message
 			log.trace(e.getMessage());
+			
+			// Rollback the transaction
+			tx.rollback();
+			
+			// Throw new exception
 			throw new EmptyListException("Could not retrieve list of managers.");
 
 		}
