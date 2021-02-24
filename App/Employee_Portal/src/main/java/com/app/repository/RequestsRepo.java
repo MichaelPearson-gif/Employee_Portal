@@ -18,7 +18,7 @@ public interface RequestsRepo {
 	List<Requests> resolvedRequests(String email) throws EmptyListException;
 	
 	// Managers can approve or deny requests
-	void updateRequest(String email, String status, int managerId);
+	void updateRequest(Requests request) throws BusinessException;
 	
 	// Managers view all pending requests of their employees
 	List<Requests> managersEmployeesPendingRequests(int managerId);
@@ -28,5 +28,8 @@ public interface RequestsRepo {
 	
 	// Managers can view all reciept images
 	List<String> recieptImages();
+	
+	// View a request for a certain employee
+	Requests getRequestById(String email) throws BusinessException;
 	
 }

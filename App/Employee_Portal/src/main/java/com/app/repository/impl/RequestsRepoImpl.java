@@ -134,8 +134,32 @@ public class RequestsRepoImpl implements RequestsRepo {
 	}
 
 	@Override
-	public void updateRequest(String email, String status, int managerId) {
-		// TODO Auto-generated method stub
+	public void updateRequest(Requests request) throws BusinessException {
+		
+		try (Session session = HibernateSessionFactory.getSession()) {
+			
+			// Begin a transaction
+			tx = session.beginTransaction();
+			
+			// Update the request
+			session.update(request);
+			
+			// Commit the transaction
+			tx.commit();
+			
+		}catch (HibernateException e) {
+
+			// Log the error message
+			log.trace(e.getMessage());
+			
+			// Rollback the transaction
+			tx.rollback();
+			
+			// Throw new exception
+			throw new BusinessException(
+					"Could not update the request.");
+
+		}
 		
 	}
 
@@ -153,6 +177,12 @@ public class RequestsRepoImpl implements RequestsRepo {
 
 	@Override
 	public List<String> recieptImages() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Requests getRequestById(String email) throws BusinessException {
 		// TODO Auto-generated method stub
 		return null;
 	}
