@@ -25,6 +25,7 @@ public class EmployeesRepoImpl implements EmployeesRepo {
 		
 		try(Session session = HibernateSessionFactory.getSession()){
 			
+			// Begin a transaction
 			Transaction tx = session.beginTransaction();
 			
 			// Query the DB and set the result to the employee object
@@ -52,12 +53,14 @@ public class EmployeesRepoImpl implements EmployeesRepo {
 		
 		try(Session session = HibernateSessionFactory.getSession()){
 			
+			// Begin a transaction
 			Transaction tx = session.beginTransaction();
 			
 			// Created a HQL query to get the password from the DB associated with the email input
 			// Had to caste to String since .createQuery returns a query type
 			password = (String) session.createQuery("SELECT password FROM employees e WHERE e.email = :email").setParameter("email", email).uniqueResult();
 			
+			// Commit transaction
 			tx.commit();
 			
 		}catch(HibernateException e) {
@@ -72,9 +75,27 @@ public class EmployeesRepoImpl implements EmployeesRepo {
 	}
 
 	@Override
-	public Employees updateInfo(Employees employee) {
-		// TODO Auto-generated method stub
-		return null;
+	public void updateInfo(Employees employee) throws BusinessException {
+		
+		try(Session session = HibernateSessionFactory.getSession()){
+			
+			// Begin a transaction
+			Transaction tx = session.beginTransaction();
+			
+			// Update the record
+			session.update(employee);
+			
+			// Commit transaction
+			tx.commit();
+			
+		}catch(HibernateException e) {
+			
+			// Log the error message
+			log.trace(e.getMessage());
+			throw new BusinessException("An internal error has occured, please check the changed value for any errors.");
+			
+		}
+		
 	}
 
 	@Override

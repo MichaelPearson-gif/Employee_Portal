@@ -15,7 +15,7 @@ public interface EmployeesRepo {
 	String getPassword(String email) throws InvalidLoginException;
 	
 	// Employee updates their info
-	Employees updateInfo(Employees employee);
+	void updateInfo(Employees employee) throws BusinessException;
 	
 	// List of all employees and their managers
 	List<String> employeeList();
