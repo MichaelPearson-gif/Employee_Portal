@@ -1,33 +1,34 @@
 CREATE TABLE employees (
-    email CHAR(30) PRIMARY KEY,
-    first_name CHAR(15) NOT NULL,
-    last_name CHAR(15) NOT NULL,
+    email VARCHAR PRIMARY KEY,
+    first_name VARCHAR NOT NULL,
+    last_name VARCHAR NOT NULL,
     phone NUMERIC NOT NULL,
-    gender CHAR(1) NOT NULL,
+    gender VARCHAR NOT NULL,
     birthday DATE NOT NULL,
     ssn INT NOT NULL,
     salary NUMERIC NOT NULL,
-    title CHAR(10) NOT NULL,
-    emp_password CHAR(20) NOT NULL
+    title VARCHAR NOT NULL,
+    emp_password VARCHAR NOT NULL
 );
 
 CREATE TABLE managers (
     manager_id SERIAL PRIMARY KEY,
-    email CHAR(30) NOT NULL REFERENCES employees(email)
+    email VARCHAR NOT NULL REFERENCES employees(email)
 );
 
 CREATE TABLE employee_manager (
-	email CHAR(30) NOT NULL PRIMARY KEY REFERENCES employees(email),
-    manager_id INT NOT NULL REFERENCES managers(manager_id)
+    manager_id INT NOT NULL REFERENCES managers(manager_id),
+    email VARCHAR NOT NULL REFERENCES employees(email),
+    CONSTRAINT employee_manager_pk PRIMARY KEY(manager_id, email)
 );
 
 CREATE TABLE requests (
     request_id SERIAL PRIMARY KEY,
-    email CHAR(30) NOT NULL REFERENCES employees(email),
+    email VARCHAR NOT NULL REFERENCES employees(email),
     manager_id INT REFERENCES managers(manager_id),
     amount NUMERIC NOT NULL,
-    reciept CHAR NOT NULL,
-    status CHAR(10) NOT NULL,
+    reciept VARCHAR,
+    status VARCHAR NOT NULL,
     dates DATE NOT NULL
 );
 

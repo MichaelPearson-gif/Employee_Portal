@@ -141,7 +141,7 @@ public class EmployeesRepoImpl implements EmployeesRepo {
 //					.getResultList();
 			
 			allEmployees = session.createQuery(
-					"SELECT CONCAT(first_name, last_name) FROM employees")
+					"SELECT CONCAT(first_name, ' ', last_name) FROM employees")
 					.getResultList();
 
 			tx.commit();
@@ -177,7 +177,7 @@ public class EmployeesRepoImpl implements EmployeesRepo {
 			// allEmployees list
 			// An inner join will already sort the order by manager
 			allManagers = session.createQuery(
-					"SELECT CONCAT(e.first_name, e.last_name) FROM employees e INNER JOIN managers m ON e.email = m.email")
+					"SELECT CONCAT(e.first_name, ' ', e.last_name) FROM employees e INNER JOIN managers m ON e.email = m.email")
 					.getResultList();
 
 			tx.commit();
