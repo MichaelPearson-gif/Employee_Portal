@@ -17,13 +17,9 @@ public class Managers {
 	/*
 	 *  Mapping each field with their respective columns and column names with the @Column(name = "")
 	 *  managerId is the primary key in the table, so it needs the @Id annotation
-	 *  managerId is also a serial type in the DB, so I need the @GeneratedValue and @SequenceGenerator
-	 *  @SequenceGenerator will correspond with the sequence constraints I created
 	 */
 	@Column(name = "manager_id")
 	@Id
-	@GeneratedValue(generator = "managers_manager_id_seq", strategy = GenerationType.AUTO)
-	@SequenceGenerator(initialValue = 100, allocationSize = 1, name = "managers_manager_id_seq", sequenceName = "managers_manager_id_seq")
 	private int managerId;
 	
 	// Relationship between Employees to Manager is one-to-one
