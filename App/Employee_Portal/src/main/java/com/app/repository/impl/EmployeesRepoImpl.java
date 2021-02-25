@@ -148,7 +148,7 @@ public class EmployeesRepoImpl implements EmployeesRepo {
 			log.trace(e.getMessage());
 			
 			// Rollback the transaction
-			tx.rollback();
+//			tx.rollback();
 			
 			// Throw new exception
 			throw new EmptyListException("Could not retrieve list of employees.");
