@@ -89,40 +89,4 @@ public class EmployeesRepoImpl implements EmployeesRepo {
 		return allEmployees;
 	}
 
-	@Override
-	public List<String> managerList() throws EmptyListException {
-
-		// Initial list
-		List<String> allManagers = new ArrayList<>();
-
-		try (Session session = HibernateSessionFactory.getSession()) {
-
-			// Begin a transaction
-			tx = session.beginTransaction();
-
-			// Query the DB for a list of employees ordered by manager and append it to the
-			// allEmployees list
-			// An inner join will already sort the order by manager
-			allManagers = session.createQuery(
-					"SELECT CONCAT(e.first_name, ' ', e.last_name) FROM employees e INNER JOIN managers m ON e.email = m.email")
-					.getResultList();
-
-			tx.commit();
-
-		} catch (HibernateException e) {
-
-			// Log the error message
-			log.trace(e.getMessage());
-			
-			// Rollback the transaction
-			tx.rollback();
-			
-			// Throw new exception
-			throw new EmptyListException("Could not retrieve list of managers.");
-
-		}
-
-		return allManagers;
-	}
-
 }
