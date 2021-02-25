@@ -32,7 +32,7 @@ public class Employees {
 	private Date dob;
 	@Column(name = "ssn")
 	private long ssn;
-	@Column(name = "salary")
+	@Column(name = "salary", columnDefinition = "NUMERIC")
 	private double salary;
 	@Column(name = "title")
 	private String title;

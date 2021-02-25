@@ -34,7 +34,7 @@ public class Requests {
 	@JoinColumn(name = "manager_id")
 	@ManyToOne
 	private Managers manager;
-	@Column(name = "amount")
+	@Column(name = "amount", columnDefinition = "NUMERIC")
 	private double amount;
 	@Column(name = "reciept")
 	private String reciept;
