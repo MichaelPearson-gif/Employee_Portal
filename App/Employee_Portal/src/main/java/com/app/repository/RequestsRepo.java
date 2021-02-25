@@ -30,6 +30,6 @@ public interface RequestsRepo {
 	List<String> recieptImages();
 	
 	// View a request for a certain employee
-	Requests getRequestById(String email) throws BusinessException;
+	List<Requests> getRequestByEmail(String email) throws EmptyListException;
 	
 }

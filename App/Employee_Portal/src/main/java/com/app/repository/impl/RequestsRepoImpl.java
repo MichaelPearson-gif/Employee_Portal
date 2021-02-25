@@ -241,9 +241,36 @@ public class RequestsRepoImpl implements RequestsRepo {
 	}
 
 	@Override
-	public Requests getRequestById(String email) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Requests> getRequestByEmail(String email) throws EmptyListException {
+		
+		// Initial list
+		List<Requests> employeeRequests = new ArrayList<>();
+		
+		try (Session session = HibernateSessionFactory.getSession()) {
+			
+			// Begin a transaction
+			tx = session.beginTransaction();
+			
+			// Query the DB and append to the employeeRequests list
+			employeeRequests = session.createQuery("FROM requests WHERE email = :email").setParameter("email", email).getResultList();
+			
+			// Commit the transaction
+			tx.commit();
+			
+		}catch (HibernateException e) {
+
+			// Log the error message
+			log.trace(e.getMessage());
+			
+			// Rollback the transaction
+			tx.rollback();
+			
+			// Throw new exception
+			throw new EmptyListException("Could not find a requests for " + email);
+
+		}
+		
+		return employeeRequests;
 	}
 
 }
