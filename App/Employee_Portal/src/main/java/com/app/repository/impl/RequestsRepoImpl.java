@@ -66,74 +66,6 @@ public class RequestsRepoImpl implements RequestsRepo {
 	}
 
 	@Override
-	public List<Requests> pendingRequests(String email) throws EmptyListException {
-		
-		// Initial list
-		List<Requests> myPendingRequests = new ArrayList<>();
-		
-		try (Session session = HibernateSessionFactory.getSession()) {
-			
-			// Begin a transaction
-			tx = session.beginTransaction();
-			
-			// Query the DB for all pending requests for an employee and append it to myPendingRequests
-			myPendingRequests = session.createQuery("FROM requests WHERE email = :email AND status = 'Pending'")
-					.setParameter("email", email).getResultList();
-			
-			// Commit the transaction
-			tx.commit();
-			
-		}catch (HibernateException e) {
-
-			// Log the error message
-			log.trace(e.getMessage());
-			
-			// Rollback the transaction
-			tx.rollback();
-			
-			// Throw new exception
-			throw new EmptyListException("Could not retrieve list of pending requests.");
-
-		}
-		
-		return myPendingRequests;
-	}
-
-	@Override
-	public List<Requests> resolvedRequests(String email) throws EmptyListException {
-		
-		// Initial list
-		List<Requests> myResolvedRequests = new ArrayList<>();
-		
-		try (Session session = HibernateSessionFactory.getSession()) {
-			
-			// Begin a transaction
-			tx = session.beginTransaction();
-			
-			// Query the DB for all pending requests for an employee and append it to myPendingRequests
-			myResolvedRequests = session.createQuery("FROM requests WHERE email = :email AND status != 'Pending'")
-					.setParameter("email", email).getResultList();
-			
-			// Commit the transaction
-			tx.commit();
-			
-		}catch (HibernateException e) {
-
-			// Log the error message
-			log.trace(e.getMessage());
-			
-			// Rollback the transaction
-			tx.rollback();
-			
-			// Throw new exception
-			throw new EmptyListException("Could not retrieve list of resolved requests.");
-
-		}
-		
-		return myResolvedRequests;
-	}
-
-	@Override
 	public void updateRequest(Requests request) throws BusinessException {
 		
 		try (Session session = HibernateSessionFactory.getSession()) {
@@ -164,44 +96,7 @@ public class RequestsRepoImpl implements RequestsRepo {
 	}
 
 	@Override
-	public List<Requests> managersEmployeesPendingRequests(int managerId) throws EmptyListException {
-		
-		// Initial list
-		List<Requests> myEmployeesPendingRequests = new ArrayList<>();
-		
-		try (Session session = HibernateSessionFactory.getSession()) {
-			
-			// Begin a transaction
-			tx = session.beginTransaction();
-			
-			// Query the DB for all pending requests for employees under a manager id
-			// Append to the myEmployeesPendingRequests list
-			myEmployeesPendingRequests = session.createQuery("FROM requests r INNER JOIN employee_manager em"
-					+ " ON r.email = em.email WHERE em.manager_id IN ("
-					+ "SELECT manager_id FROM managers WHERE manager_id = :manager_id)")
-					.setParameter("manager_id", managerId).getResultList();
-			
-			// Commit the transaction
-			tx.commit();
-			
-		}catch (HibernateException e) {
-
-			// Log the error message
-			log.trace(e.getMessage());
-			
-			// Rollback the transaction
-			tx.rollback();
-			
-			// Throw new exception
-			throw new EmptyListException("Could not retrieve list of employee pending requests.");
-
-		}
-		
-		return myEmployeesPendingRequests;
-	}
-
-	@Override
-	public List<Requests> allResolvedRequests() throws EmptyListException {
+	public List<Requests> getRequests() throws EmptyListException {
 		
 		// Initial list
 		List<Requests> allResolvedRequestsList = new ArrayList<>();
@@ -212,8 +107,7 @@ public class RequestsRepoImpl implements RequestsRepo {
 			tx = session.beginTransaction();
 			
 			// Query the DB for all resolved requests, ordered by manager_id, and append to the allResolvedRequestsList list
-			allResolvedRequestsList = session.createQuery("FROM requests WHERE status != 'Pending' ORDER BY manager_id")
-					.getResultList();
+			allResolvedRequestsList = session.createQuery("FROM Requests", Requests.class).getResultList();
 			
 			// Commit the transaction
 			tx.commit();
@@ -239,38 +133,4 @@ public class RequestsRepoImpl implements RequestsRepo {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	@Override
-	public List<Requests> getRequestByEmail(String email) throws EmptyListException {
-		
-		// Initial list
-		List<Requests> employeeRequests = new ArrayList<>();
-		
-		try (Session session = HibernateSessionFactory.getSession()) {
-			
-			// Begin a transaction
-			tx = session.beginTransaction();
-			
-			// Query the DB and append to the employeeRequests list
-			employeeRequests = session.createQuery("FROM requests WHERE email = :email").setParameter("email", email).getResultList();
-			
-			// Commit the transaction
-			tx.commit();
-			
-		}catch (HibernateException e) {
-
-			// Log the error message
-			log.trace(e.getMessage());
-			
-			// Rollback the transaction
-			tx.rollback();
-			
-			// Throw new exception
-			throw new EmptyListException("Could not find a requests for " + email);
-
-		}
-		
-		return employeeRequests;
-	}
-
 }
