@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -43,8 +44,8 @@ public class Employees {
 	 * Creating a way to reference my joint table
 	 * The relationship is one-to-many because each employee has 1 manager, but managers have multiple employees
 	 */
-	@OneToMany
-	@JoinTable(name = "employee_manager", joinColumns = {@JoinColumn(name = "email")}, inverseJoinColumns = {@JoinColumn(name = "manager_id")})
+	@OneToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "employee_manager", joinColumns = {@JoinColumn(name = "email")}, inverseJoinColumns = {@JoinColumn(name = "manager_id")}, schema = "employee_portal")
 	private Set<Managers> managers;
 	
 	public Employees() {
