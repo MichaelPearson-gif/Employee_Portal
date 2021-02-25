@@ -24,7 +24,7 @@ public class Employees {
 	private String firstName;
 	@Column(name = "last_name")
 	private String lastName;
-	@Column(name = "phone")
+	@Column(name = "phone", columnDefinition = "NUMERIC")
 	private long phone;
 	@Column(name = "gender")
 	private String gender;

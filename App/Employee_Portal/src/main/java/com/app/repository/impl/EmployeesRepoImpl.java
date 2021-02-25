@@ -136,12 +136,8 @@ public class EmployeesRepoImpl implements EmployeesRepo {
 			// Query the DB for a list of employees ordered by manager and append it to the
 			// allEmployees list
 			// An inner join will already sort the order by manager
-//			allEmployees = session.createQuery(
-//					"SELECT CONCAT(e.first_name, e.last_name) FROM employees e INNER JOIN employee_manager em ON e.email = em.email")
-//					.getResultList();
-			
 			allEmployees = session.createQuery(
-					"SELECT CONCAT(first_name, ' ', last_name) FROM employees")
+					"SELECT CONCAT(e.first_name, e.last_name) FROM employees e INNER JOIN employee_manager em ON e.email = em.email")
 					.getResultList();
 
 			tx.commit();

@@ -3,6 +3,7 @@ package com.app.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -21,7 +22,7 @@ public class Managers {
 	 */
 	@Column(name = "manager_id")
 	@Id
-	@GeneratedValue(generator = "managers_manager_id_seq")
+	@GeneratedValue(generator = "managers_manager_id_seq", strategy = GenerationType.AUTO)
 	@SequenceGenerator(initialValue = 100, allocationSize = 1, name = "managers_manager_id_seq", sequenceName = "managers_manager_id_seq")
 	private int managerId;
 	

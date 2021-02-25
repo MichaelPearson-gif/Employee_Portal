@@ -5,6 +5,7 @@ import java.sql.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -25,7 +26,7 @@ public class Requests {
 	 */
 	@Column(name = "request_id")
 	@Id
-	@GeneratedValue(generator = "requests_request_id_seq")
+	@GeneratedValue(generator = "requests_request_id_seq", strategy = GenerationType.AUTO)
 	@SequenceGenerator(allocationSize = 1, name = "requests_request_id_seq", sequenceName = "requests_request_id_seq")
 	private int requestId;
 	@JoinColumn(name = "email")
