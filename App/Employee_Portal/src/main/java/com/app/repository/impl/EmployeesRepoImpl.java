@@ -10,7 +10,6 @@ import org.hibernate.Transaction;
 
 import com.app.exceptions.BusinessException;
 import com.app.exceptions.EmptyListException;
-import com.app.exceptions.InvalidLoginException;
 import com.app.model.Employees;
 import com.app.repository.EmployeesRepo;
 import com.app.repository.util.HibernateSessionFactory;
@@ -54,10 +53,10 @@ public class EmployeesRepoImpl implements EmployeesRepo {
 	}
 
 	@Override
-	public List<String> employeeList() throws EmptyListException {
+	public List<Employees> employeeList() throws EmptyListException {
 
 		// Initial list
-		List<String> allEmployees = new ArrayList<>();
+		List<Employees> allEmployees = new ArrayList<>();
 
 		try (Session session = HibernateSessionFactory.getSession()) {
 
@@ -67,9 +66,7 @@ public class EmployeesRepoImpl implements EmployeesRepo {
 			// Query the DB for a list of employees ordered by manager and append it to the
 			// allEmployees list
 			// An inner join will already sort the order by manager
-			allEmployees = session.createQuery(
-					"SELECT CONCAT(e.first_name, e.last_name) FROM employees e INNER JOIN employee_manager em ON e.email = em.email")
-					.getResultList();
+			allEmployees = session.createQuery("FROM Employees", Employees.class).getResultList();
 
 			tx.commit();
 

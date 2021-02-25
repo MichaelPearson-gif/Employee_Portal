@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.app.exceptions.BusinessException;
 import com.app.exceptions.EmptyListException;
-import com.app.exceptions.InvalidLoginException;
 import com.app.model.Employees;
 
 public interface EmployeesRepo {
@@ -13,6 +12,6 @@ public interface EmployeesRepo {
 	void updateInfo(Employees employee) throws BusinessException;
 	
 	// List of all employees
-	List<String> employeeList() throws EmptyListException;
+	List<Employees> employeeList() throws EmptyListException;
 	
 }
