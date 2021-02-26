@@ -16,17 +16,6 @@ public class Driver {
 		
 		EmployeesService employeesService = new EmployeesServiceImpl();
 		
-		try {
-			Employees employee = employeesService.getEmployee("lbrown@gmail.com");
-			Set<Managers> manager = employee.getManagers();
-			List<Managers> managerList = new ArrayList<>();
-			System.out.println(manager);
-		} catch (BusinessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
 
 	}
 
