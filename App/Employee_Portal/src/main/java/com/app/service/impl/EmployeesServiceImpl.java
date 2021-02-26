@@ -47,8 +47,12 @@ public class EmployeesServiceImpl implements EmployeesService {
 
 	@Override
 	public Employees getEmployee(String email) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		// Create an employee object using the repository layer method for retrieving an employee
+		Employees employee = employeesRepo.getEmployee(email);
+		
+		// Return the employee object
+		return employee;
 	}
 
 	@Override
