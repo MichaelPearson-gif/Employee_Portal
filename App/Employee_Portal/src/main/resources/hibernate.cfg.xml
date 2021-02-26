@@ -25,6 +25,7 @@
 		<mapping class="com.app.model.Employees"/>
 		<mapping class="com.app.model.Managers"/>
 		<mapping class="com.app.model.Requests"/>
+		<mapping class="com.app.model.EmployeeManager"/>
 	</session-factory>
 
 </hibernate-configuration>
