@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.app.exceptions.BusinessException;
+import com.app.exceptions.EmptyListException;
 import com.app.model.Employees;
 import com.app.repository.EmployeesRepo;
 import com.app.repository.impl.EmployeesRepoImpl;
@@ -65,8 +66,21 @@ public class EmployeesServiceImpl implements EmployeesService {
 
 	@Override
 	public List<Employees> employeeRoster() throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		// Initial list variable
+		List<Employees> allEmployees = null;
+		
+		// Append the list with the data from the DB
+		try {
+			for(Employees employee : employeesRepo.employeeList()) {
+				allEmployees.add(employee);
+			}
+		} catch (EmptyListException e) {
+			log.trace(e.getMessage());
+			throw new BusinessException("Check connection to the DB");
+		}
+		
+		return allEmployees;
 	}
 
 }
