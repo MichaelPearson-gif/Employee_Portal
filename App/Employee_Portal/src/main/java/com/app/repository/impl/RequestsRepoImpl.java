@@ -88,8 +88,7 @@ public class RequestsRepoImpl implements RequestsRepo {
 			tx.rollback();
 			
 			// Throw new exception
-			throw new BusinessException(
-					"Could not update the request.");
+			throw new BusinessException("Could not update the request.");
 
 		}
 		
