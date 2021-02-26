@@ -65,16 +65,27 @@ public class EmployeesServiceImpl implements EmployeesService {
 	}
 
 	@Override
-	public List<Employees> employeeRoster() throws BusinessException {
+	public List<String> employeeRoster() throws BusinessException {
 		
 		// Initial list variable
-		List<Employees> allEmployees = null;
+		List<String> allEmployees = null;
 		
-		// Append the list with the data from the DB
+		// Access the DB and manipulate the data
 		try {
-			for(Employees employee : employeesRepo.employeeList()) {
-				allEmployees.add(employee);
+			
+			// List of employee objects
+			List<Employees> allEmployeesList = employeesRepo.employeeList();
+			
+			// Sort the list my manager (Ideal format: Manager, Employee, ..., Manager, Employee, ...)
+			// Make a list variable of type String
+			// Grab the the first and last name of each employee in the sorted allEmployeesList and concatnate them together
+			// Append the concatnated name to the String list
+			
+			// Iterate through the list and append to the allEmployees list
+			for(Employees employee : allEmployeesList) {
+				
 			}
+			
 		} catch (EmptyListException e) {
 			log.trace(e.getMessage());
 			throw new BusinessException("Check connection to the DB");
