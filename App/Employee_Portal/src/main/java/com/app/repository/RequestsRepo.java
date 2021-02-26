@@ -14,7 +14,7 @@ public interface RequestsRepo {
 	// Managers can approve or deny requests
 	void updateRequest(Requests request) throws BusinessException;
 	
-	// Managers can view all resolved requests
+	// Get all request records
 	List<Requests> getRequests() throws EmptyListException;
 	
 	// Managers can view all reciept images

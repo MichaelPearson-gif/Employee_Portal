@@ -99,7 +99,7 @@ public class RequestsRepoImpl implements RequestsRepo {
 	public List<Requests> getRequests() throws EmptyListException {
 		
 		// Initial list
-		List<Requests> allResolvedRequestsList = new ArrayList<>();
+		List<Requests> allRequests = new ArrayList<>();
 		
 		try (Session session = HibernateSessionFactory.getSession()) {
 			
@@ -107,7 +107,7 @@ public class RequestsRepoImpl implements RequestsRepo {
 			tx = session.beginTransaction();
 			
 			// Query the DB for all resolved requests, ordered by manager_id, and append to the allResolvedRequestsList list
-			allResolvedRequestsList = session.createQuery("FROM Requests", Requests.class).getResultList();
+			allRequests = session.createQuery("FROM Requests", Requests.class).getResultList();
 			
 			// Commit the transaction
 			tx.commit();
@@ -125,7 +125,7 @@ public class RequestsRepoImpl implements RequestsRepo {
 
 		}
 		
-		return allResolvedRequestsList;
+		return allRequests;
 	}
 
 	@Override
