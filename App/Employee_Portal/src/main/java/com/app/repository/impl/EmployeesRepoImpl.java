@@ -45,8 +45,7 @@ public class EmployeesRepoImpl implements EmployeesRepo {
 			tx.rollback();
 			
 			// Throw new exception
-			throw new BusinessException(
-					"An internal error has occured, please check the changed value for any errors.");
+			throw new BusinessException("An internal error has occured, please check the changed value for any errors.");
 
 		}
 
@@ -84,6 +83,39 @@ public class EmployeesRepoImpl implements EmployeesRepo {
 		}
 
 		return allEmployees;
+	}
+
+	@Override
+	public Employees getEmployee(String email) throws BusinessException {
+		
+		// Initital Employees value
+		Employees employee = new Employees();
+		
+		try (Session session = HibernateSessionFactory.getSession()) {
+			
+			// Begin a transaction
+			tx = session.beginTransaction();
+			
+			// Query the DB and set the result to the employee object
+			employee = session.get(Employees.class, email);
+			
+			// Commit the transaction
+			tx.commit();
+			
+		}catch (HibernateException e) {
+
+			// Log the error message
+			log.trace(e.getMessage());
+			
+			// Rollback the transaction
+			tx.rollback();
+			
+			// Throw new exception
+			throw new BusinessException("Could not retrieve employee with the email: " + email);
+
+		}
+		
+		return employee;
 	}
 
 }

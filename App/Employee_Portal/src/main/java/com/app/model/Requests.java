@@ -27,7 +27,7 @@ public class Requests {
 	@Column(name = "request_id")
 	@Id
 	@GeneratedValue(generator = "requests_request_id_seq", strategy = GenerationType.AUTO)
-	@SequenceGenerator(allocationSize = 1, name = "requests_request_id_seq", sequenceName = "requests_request_id_seq")
+	@SequenceGenerator(allocationSize = 1, name = "requests_request_id_seq", initialValue = 1, sequenceName = "requests_request_id_seq")
 	private int requestId;
 	@JoinColumn(name = "email")
 	@ManyToOne

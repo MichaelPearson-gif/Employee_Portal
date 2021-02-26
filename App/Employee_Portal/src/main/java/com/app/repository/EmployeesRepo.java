@@ -14,4 +14,7 @@ public interface EmployeesRepo {
 	// List of all employees
 	List<Employees> employeeList() throws EmptyListException;
 	
+	// Retrieve a single employee
+	Employees getEmployee(String email) throws BusinessException;
+	
 }
