@@ -57,7 +57,9 @@ public class EmployeesServiceImpl implements EmployeesService {
 
 	@Override
 	public void updateInfo(Employees employee) throws BusinessException {
-		// TODO Auto-generated method stub
+		
+		// Call the repository layer method updateInfo
+		employeesRepo.updateInfo(employee);
 
 	}
 
