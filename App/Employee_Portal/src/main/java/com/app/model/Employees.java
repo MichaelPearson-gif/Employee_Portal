@@ -1,15 +1,9 @@
 package com.app.model;
 
 import java.sql.Date;
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -40,21 +34,13 @@ public class Employees {
 	@Column(name = "emp_password")
 	private String password;
 	
-	/*
-	 * Creating a way to reference my joint table
-	 * The relationship is one-to-many because each employee has 1 manager, but managers have multiple employees
-	 */
-	@OneToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "employee_manager", joinColumns = {@JoinColumn(name = "email")}, inverseJoinColumns = {@JoinColumn(name = "manager_id")}, schema = "employee_portal")
-	private Set<Managers> managers;
-	
 	public Employees() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
 	public Employees(String email, String firstName, String lastName, long phone, String gender, Date dob, long ssn,
-			double salary, String title, String password, Set<Managers> managers) {
+			double salary, String title, String password) {
 		super();
 		this.email = email;
 		this.firstName = firstName;
@@ -66,7 +52,6 @@ public class Employees {
 		this.salary = salary;
 		this.title = title;
 		this.password = password;
-		this.managers = managers;
 	}
 
 	public String getEmail() {
@@ -149,14 +134,6 @@ public class Employees {
 		this.password = password;
 	}
 
-	public Set<Managers> getManagers() {
-		return managers;
-	}
-
-	public void setManagers(Set<Managers> managers) {
-		this.managers = managers;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -166,7 +143,6 @@ public class Employees {
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + ((gender == null) ? 0 : gender.hashCode());
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
-		result = prime * result + ((managers == null) ? 0 : managers.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + (int) (phone ^ (phone >>> 32));
 		long temp;
@@ -211,11 +187,6 @@ public class Employees {
 				return false;
 		} else if (!lastName.equals(other.lastName))
 			return false;
-		if (managers == null) {
-			if (other.managers != null)
-				return false;
-		} else if (!managers.equals(other.managers))
-			return false;
 		if (password == null) {
 			if (other.password != null)
 				return false;
@@ -239,7 +210,6 @@ public class Employees {
 	public String toString() {
 		return "Employees [email=" + email + ", firstName=" + firstName + ", lastName=" + lastName + ", phone=" + phone
 				+ ", gender=" + gender + ", dob=" + dob + ", ssn=" + ssn + ", salary=" + salary + ", title=" + title
-				+ ", password=" + password + ", managers=" + managers + "]";
+				+ ", password=" + password + "]";
 	}
-
 }
