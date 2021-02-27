@@ -17,7 +17,8 @@ CREATE TABLE managers (
 );
 
 CREATE TABLE employee_manager (
-	email VARCHAR PRIMARY KEY REFERENCES employees(email),
+	id INT PRIMARY KEY,
+	email VARCHAR REFERENCES employees(email),
     manager_id INT REFERENCES managers(manager_id)
 );
 

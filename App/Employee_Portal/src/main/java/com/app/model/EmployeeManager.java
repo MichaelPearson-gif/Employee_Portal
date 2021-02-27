@@ -12,9 +12,12 @@ import javax.persistence.Table;
 public class EmployeeManager {
 
 	// Mapping each field with their respective columns and column names with the @Column(name = "")
-	// Email is the primary key in the table, so it needs the @Id annotation
+	// id is the primary key in the table, so it needs the @Id annotation
 	// Both fields are foreign keys to different tables with their own relationships, so I will need to map those correctly
+	
 	@Id
+	private int id;
+	
 	@OneToOne
 	@JoinColumn(name = "email")
 	private Employees employee;
@@ -28,10 +31,19 @@ public class EmployeeManager {
 		// TODO Auto-generated constructor stub
 	}
 
-	public EmployeeManager(Employees employee, Managers manager) {
+	public EmployeeManager(int id, Employees employee, Managers manager) {
 		super();
+		this.id = id;
 		this.employee = employee;
 		this.manager = manager;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public Employees getEmployee() {
@@ -55,6 +67,7 @@ public class EmployeeManager {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((employee == null) ? 0 : employee.hashCode());
+		result = prime * result + id;
 		result = prime * result + ((manager == null) ? 0 : manager.hashCode());
 		return result;
 	}
@@ -73,6 +86,8 @@ public class EmployeeManager {
 				return false;
 		} else if (!employee.equals(other.employee))
 			return false;
+		if (id != other.id)
+			return false;
 		if (manager == null) {
 			if (other.manager != null)
 				return false;
@@ -83,7 +98,7 @@ public class EmployeeManager {
 
 	@Override
 	public String toString() {
-		return "EmployeeManager [employee=" + employee + ", manager=" + manager + "]";
+		return "EmployeeManager [id=" + id + ", employee=" + employee + ", manager=" + manager + "]";
 	}
 	
 }
