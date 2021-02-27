@@ -1,5 +1,6 @@
 package com.app.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -23,7 +24,7 @@ public class ManagersServiceImpl implements ManagersService {
 	public List<Managers> getManagers() throws BusinessException {
 		
 		// Initial list variable
-		List<Managers> allManagers = null;
+		List<Managers> allManagers = new ArrayList<>();
 		
 		// Append the list with the data from the DB
 		try {
