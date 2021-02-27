@@ -1,5 +1,6 @@
 package com.app.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -65,28 +66,21 @@ public class EmployeesServiceImpl implements EmployeesService {
 	}
 
 	@Override
-	public List<String> employeeRoster() throws BusinessException {
+	public List<Employees> employeeRoster() throws BusinessException {
 		
 		// Initial list variable
-		List<String> allEmployees = null;
+		List<Employees> allEmployees = new ArrayList<>();
 		
-		// Access the DB and manipulate the data
 		try {
 			
-			// List of employee objects
-			List<Employees> allEmployeesList = employeesRepo.employeeList();
-			
-			// Sort the list my manager (Ideal format: Manager, Employee, ..., Manager, Employee, ...)
-			// Make a list variable of type String
-			// Grab the the first and last name of each employee in the sorted allEmployeesList and concatnate them together
-			// Append the concatnated name to the String list
-			
-			// Iterate through the list and append to the allEmployees list
-			for(Employees employee : allEmployeesList) {
-				
+			// Append the list with the data from the DB
+			for(Employees employee : employeesRepo.employeeList()) {
+				allEmployees.add(employee);
 			}
 			
 		} catch (EmptyListException e) {
+			
+			// Log the error and throw new exception
 			log.trace(e.getMessage());
 			throw new BusinessException("Check connection to the DB");
 		}

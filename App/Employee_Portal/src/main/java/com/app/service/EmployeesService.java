@@ -17,6 +17,6 @@ public interface EmployeesService {
 	void updateInfo(Employees employee) throws BusinessException;
 	
 	// Get a list of all employees (Just need names)
-	List<String> employeeRoster() throws BusinessException;
+	List<Employees> employeeRoster() throws BusinessException;
 	
 }

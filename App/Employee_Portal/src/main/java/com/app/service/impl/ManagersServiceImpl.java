@@ -34,6 +34,8 @@ public class ManagersServiceImpl implements ManagersService {
 			
 			
 		} catch (EmptyListException e) {
+			
+			// Log the error and throw new exception
 			log.trace(e.getMessage());
 			throw new BusinessException("Check connection to the DB");
 		}
