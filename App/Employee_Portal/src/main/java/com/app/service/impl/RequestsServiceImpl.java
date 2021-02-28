@@ -86,13 +86,35 @@ public class RequestsServiceImpl implements RequestsService {
 		}
 		
 		return employeeResolvedRequests;
-
 	}
 
 	@Override
 	public List<Requests> getResolvedRequests() throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		// Initial list object that will be returned
+		List<Requests> allResolvedRequests = new ArrayList<>();
+		
+		try {
+			
+			// Filtered list variable that will store all the requests
+			List<Requests> filteredRequests = requestsRepo.getRequests();
+			
+			// Filter by status of request to requests that are not pending
+			filteredRequests.removeIf((f) -> !f.getStatus().equals("Pending"));
+			
+			// Append the employeePendingRequests with elements of the filtered list
+			for(Requests request : filteredRequests) {
+				allResolvedRequests.add(request);
+			}
+			
+		} catch (EmptyListException e) {
+			
+			log.trace(e.getMessage());
+			throw new BusinessException("Could not get list of requests. Check connection to the DB");
+		}
+		
+		return allResolvedRequests;
+
 	}
 
 	@Override
