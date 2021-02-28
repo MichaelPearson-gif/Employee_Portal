@@ -44,8 +44,12 @@ public class ManagersServiceImpl implements ManagersService {
 
 	@Override
 	public Managers getManager(String email) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		// Create a manager object using the repository layer method getManager
+		Managers manager = managersRepo.getManager(email);
+		
+		// Return the manager object
+		return manager;
 	}
 
 }

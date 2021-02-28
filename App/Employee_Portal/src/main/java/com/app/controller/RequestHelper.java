@@ -2,6 +2,7 @@ package com.app.controller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import com.app.exceptions.BusinessException;
 import com.app.model.Employees;
 import com.app.service.impl.EmployeesServiceImpl;
+import com.app.service.impl.ManagersServiceImpl;
 
 public class RequestHelper {
 
@@ -63,6 +65,24 @@ public class RequestHelper {
 				session.setAttribute("email", email);
 				
 				// Redirect to the correct page
+				// Check to see if the client is a manager
+				if(new ManagersServiceImpl().getManager(email) != null) {
+					
+					// Send to the managers home page
+					response.sendRedirect("/Employee_Portal/Pages/manager.html");
+					
+					RequestDispatcher dispatcher = request.getRequestDispatcher("/Pages/manager.html");
+					dispatcher.forward(request, response);
+					
+				}else {
+					
+					// Send to the employees home page
+					response.sendRedirect("/Employee_Portal/Pages/employee.html");
+					
+					RequestDispatcher dispatcher = request.getRequestDispatcher("/Pages/employee.html");
+					dispatcher.forward(request, response);
+					
+				}
 				
 			}
 			break;
