@@ -3,6 +3,7 @@ package com.app.service;
 import java.util.List;
 
 import com.app.exceptions.BusinessException;
+import com.app.model.Managers;
 import com.app.model.Requests;
 
 public interface RequestsService {
@@ -23,7 +24,7 @@ public interface RequestsService {
 	List<Requests> getEmployeeRequests(String email) throws BusinessException;
 	
 	// Managers can view all pending requests from their employees
-	List<Requests> getPendingRequestsByManager(int managerId) throws BusinessException;
+	List<Requests> getPendingRequestsByManager(Managers manager) throws BusinessException;
 	
 	// Managers can approve or deny pending requests
 	void updateRequests(Requests request) throws BusinessException;
