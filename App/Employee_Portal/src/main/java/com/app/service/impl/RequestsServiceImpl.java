@@ -206,7 +206,9 @@ public class RequestsServiceImpl implements RequestsService {
 
 	@Override
 	public void updateRequests(Requests request) throws BusinessException {
-		// TODO Auto-generated method stub
+		
+		// Call the updateRequests method from the repository layer
+		requestsRepo.updateRequest(request);
 
 	}
 
