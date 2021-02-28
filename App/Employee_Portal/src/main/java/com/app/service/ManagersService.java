@@ -9,4 +9,7 @@ public interface ManagersService {
 
 	// Get a list of managers
 	List<Managers> getManagers() throws BusinessException;
+	
+	// Get a manager by their email
+	Managers getManager(String email) throws BusinessException;
 }

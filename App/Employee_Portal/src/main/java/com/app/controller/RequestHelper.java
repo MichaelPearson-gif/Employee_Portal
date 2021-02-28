@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.app.exceptions.BusinessException;
 import com.app.model.Employees;
@@ -35,6 +36,39 @@ public class RequestHelper {
 		default:
 			response.setStatus(404);
 			return "Sorry. The resource you have requested does not exist.";
+		
+		}
+		
+	}
+	
+	// Method to process POST requests
+	public static void processPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, BusinessException{
+		
+		final String URI = request.getRequestURI();
+		final String RESOURCE = URI.replace("/EmployeePortal", "");
+		
+		switch(RESOURCE) {
+		
+		case "/login":
+			
+			final String email = request.getParameter("email");
+			final String password = request.getParameter("password");
+			
+			if(new EmployeesServiceImpl().validate(email, password)) {
+				
+				// Grant the client a session
+				HttpSession session = request.getSession();
+				
+				// Set the client email as a session attribute
+				session.setAttribute("email", email);
+				
+				// Redirect to the correct page
+				
+			}
+			break;
+			
+		default:
+			response.setStatus(404);
 		
 		}
 		

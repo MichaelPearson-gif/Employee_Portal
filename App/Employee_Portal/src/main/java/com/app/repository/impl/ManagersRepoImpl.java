@@ -8,6 +8,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import com.app.exceptions.BusinessException;
 import com.app.exceptions.EmptyListException;
 import com.app.model.Managers;
 import com.app.repository.ManagersRepo;
@@ -53,6 +54,38 @@ public class ManagersRepoImpl implements ManagersRepo {
 
 		return allManagers;
 
+	}
+
+	@Override
+	public Managers getManager(String email) throws BusinessException {
+		
+		// Initial Managers object
+		Managers manager = new Managers();
+		
+		try (Session session = HibernateSessionFactory.getSession()) {
+			
+			// Begin a transaction
+			tx = session.beginTransaction();
+			
+			// Query the DB and set the result to the manager object
+			manager = session.get(Managers.class, email);
+			
+			// Commit the transaction
+			tx.commit();
+			
+		}catch (HibernateException e) {
+
+			// Log the error message
+			log.trace(e.getMessage());
+			
+			// Rollback the transaction
+			tx.rollback();
+			
+			// Throw new exception
+			throw new BusinessException("Could not find a manager with the email: " + email);
+		}
+		
+		return manager;
 	}
 
 }

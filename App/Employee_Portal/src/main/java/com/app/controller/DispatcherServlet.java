@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.app.exceptions.BusinessException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class DispatcherServlet extends HttpServlet{
@@ -26,6 +27,13 @@ public class DispatcherServlet extends HttpServlet{
 	
 	// Servlet for my POST requests
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
+		
+		try {
+			RequestHelper.processPost(request, response);
+		} catch (IOException | ServletException | BusinessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	

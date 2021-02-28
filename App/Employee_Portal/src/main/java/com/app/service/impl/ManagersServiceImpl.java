@@ -42,4 +42,10 @@ public class ManagersServiceImpl implements ManagersService {
 		return allManagers;
 	}
 
+	@Override
+	public Managers getManager(String email) throws BusinessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
