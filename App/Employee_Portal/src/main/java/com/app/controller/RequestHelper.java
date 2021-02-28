@@ -19,11 +19,12 @@ public class RequestHelper {
 	public static Object processGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
 		
 		final String URI = request.getRequestURI();
-		final String RESOURCE = URI.replace("/EmployeePortal", "");
+		final String RESOURCE = URI.replace("/EmployeePortal/api", "");
 		
 		switch(RESOURCE) {
 		
-		case "/employee/info":
+		// Client views their info
+		case "/info":
 			response.setStatus(200);
 			Employees employee = new Employees();
 			try {
@@ -34,6 +35,15 @@ public class RequestHelper {
 			}
 			
 			return employee;
+			
+		// Client logs out
+		case "/logout":
+			
+			HttpSession session = request.getSession(false);
+			if(session != null) {
+				session.invalidate();
+			}
+			return "Your session has been invalidated.";
 			
 		default:
 			response.setStatus(404);
@@ -69,7 +79,7 @@ public class RequestHelper {
 				if(new ManagersServiceImpl().getManager(email) != null) {
 					
 					// Send to the managers home page
-					response.sendRedirect("/Employee_Portal/Pages/manager.html");
+					response.sendRedirect("/Employee_Portal/api/Pages/manager.html");
 					
 					RequestDispatcher dispatcher = request.getRequestDispatcher("/Pages/manager.html");
 					dispatcher.forward(request, response);
