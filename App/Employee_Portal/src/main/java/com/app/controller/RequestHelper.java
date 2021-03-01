@@ -278,7 +278,7 @@ public class RequestHelper {
 	public static void processPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, BusinessException{
 		
 		final String URI = request.getRequestURI();
-		final String RESOURCE = URI.replace("/EmployeePortal", "");
+		final String RESOURCE = URI.replace("/EmployeePortal/api", "");
 		
 		switch(RESOURCE) {
 		
