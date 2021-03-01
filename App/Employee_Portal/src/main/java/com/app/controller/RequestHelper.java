@@ -344,6 +344,18 @@ public class RequestHelper {
 			// End the case with a break
 			break;
 			
+		// Client (managers) can approve or deny requests
+		case "/resolving":
+			
+			// Get the request object parameter
+			final Requests updateRequest = (Requests) request.getAttribute("updateRequest");
+			
+			// Send the update to the service layer
+			new RequestsServiceImpl().updateRequests(updateRequest);
+			
+			// End the case with a break
+			break;
+			
 		default:
 			response.setStatus(404);
 		
