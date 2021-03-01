@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.app.exceptions.BusinessException;
 import com.app.model.Employees;
+import com.app.model.Managers;
 import com.app.model.Requests;
 import com.app.service.impl.EmployeesServiceImpl;
 import com.app.service.impl.ManagersServiceImpl;
@@ -90,6 +91,7 @@ public class RequestHelper {
 			// Return the list
 			return employeePendingRequests;
 			
+		// Client can view all of their resolved requests
 		case "employee/resolved/requests":
 			
 			// Set the status code
@@ -106,9 +108,9 @@ public class RequestHelper {
 				// List variable that will call the service layer
 				List<Requests> tempList = new RequestsServiceImpl().getResolvedRequestsByEmail(attribute);
 				
-				// Loop through the tempList and append its elements to the employeePendingRequests list
-				for(Requests pendingRequest : tempList) {
-					employeeResolvedRequests.add(pendingRequest);
+				// Loop through the tempList and append its elements to the employeeResolvedRequests list
+				for(Requests resolvedRequests : tempList) {
+					employeeResolvedRequests.add(resolvedRequests);
 				}
 				
 			} catch (BusinessException e) {
@@ -118,6 +120,40 @@ public class RequestHelper {
 			
 			// Return the list
 			return employeeResolvedRequests;
+			
+		// Client (manager) views all pending requests of their employees
+		case "/pending/requests":
+			
+			// Set the status code
+			response.setStatus(200);
+			
+			// Inititial list of requests
+			List<Requests> managerEmployeePendingRequests = new ArrayList<>();
+			
+			try {
+				
+				// Get the session attribute
+				String attribute = (String) request.getSession(false).getAttribute("email");
+				
+				// Get the corresponding manager object
+				Managers manager = new ManagersServiceImpl().getManager(attribute);
+				
+				// List variable that will call the service layer
+				List<Requests> tempList = new RequestsServiceImpl().getPendingRequestsByManager(manager);
+				
+				// Loop through the tempList and append its elements to the managerEmployeePendingRequests list
+				for(Requests managerPendingRequest : tempList) {
+					managerEmployeePendingRequests.add(managerPendingRequest);
+				}
+				
+				
+			} catch (BusinessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			// Return the list
+			return managerEmployeePendingRequests;
 			
 		default:
 			response.setStatus(404);
