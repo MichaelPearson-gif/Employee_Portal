@@ -11,9 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.app.exceptions.BusinessException;
+import com.app.model.EmployeeManager;
 import com.app.model.Employees;
 import com.app.model.Managers;
 import com.app.model.Requests;
+import com.app.service.impl.EmployeeManagerServiceImpl;
 import com.app.service.impl.EmployeesServiceImpl;
 import com.app.service.impl.ManagersServiceImpl;
 import com.app.service.impl.RequestsServiceImpl;
@@ -182,6 +184,58 @@ public class RequestHelper {
 			
 			// Return the list
 			return allResolvedRequests;
+			
+		// Client (manager) can see all requests from one of their employees
+		case "/employee/requests":
+			
+			// Set the status code
+			response.setStatus(200);
+			
+			// Grab the input variable
+			final String employeeEmail = request.getParameter("employeeEmail");
+			
+			// Inital list variable
+			List<Requests> allEmployeeRequests = new ArrayList<>();
+			
+			try {
+				
+				// Get the session attribute
+				String attribute = (String) request.getSession(false).getAttribute("email");
+				
+				// Get the client's manager info
+				Managers manager = new ManagersServiceImpl().getManager(attribute);
+				
+				// Get list of employees for the manager
+				List<EmployeeManager> employeeList = new EmployeeManagerServiceImpl().getEmployeesByManager(manager);
+				
+				// Iterate through the employeeList
+				for(EmployeeManager employeeManager : employeeList) {
+					
+					// Check if the employee that the client requested for is one of their employees
+					if(employeeManager.getEmployee().getEmail().equals(employeeEmail)) {
+						
+						// List variable that will call the service layer
+						List<Requests> tempList = new RequestsServiceImpl().getEmployeeRequests(employeeEmail);
+						
+						// Iterate through the tempList and append to the allEmployeeRequests
+						for(Requests employeeRequests : tempList) {
+							allEmployeeRequests.add(employeeRequests);
+						}
+						
+					}else {
+						response.setStatus(404);
+						return "Sorry the employee you specified is not one of your employees";
+					}
+					
+				}
+				
+			}catch (BusinessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			// Return the list
+			return allEmployeeRequests;
 
 			
 		default:
