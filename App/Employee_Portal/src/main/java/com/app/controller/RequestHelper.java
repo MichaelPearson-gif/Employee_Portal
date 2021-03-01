@@ -61,7 +61,7 @@ public class RequestHelper {
 			return "Your session has been invalidated.";
 			
 		// Client can view their pending requests
-		case "/pending/requests":
+		case "employee/pending/requests":
 			
 			// Set the status code 
 			response.setStatus(200);
@@ -69,7 +69,6 @@ public class RequestHelper {
 			// Initial list of requests
 			List<Requests> employeePendingRequests = new ArrayList<>();
 			
-			// List variable that will call the service layer
 			try {
 				
 				// Get the session attribute
@@ -87,6 +86,38 @@ public class RequestHelper {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
+			// Return the list
+			return employeePendingRequests;
+			
+		case "employee/resolved/requests":
+			
+			// Set the status code
+			response.setStatus(200);
+			
+			// Initial list of requests
+			List<Requests> employeeResolvedRequests = new ArrayList<>();
+			
+			try {
+				
+				// Get the session attribute
+				String attribute = (String) request.getSession(false).getAttribute("email");
+				
+				// List variable that will call the service layer
+				List<Requests> tempList = new RequestsServiceImpl().getResolvedRequestsByEmail(attribute);
+				
+				// Loop through the tempList and append its elements to the employeePendingRequests list
+				for(Requests pendingRequest : tempList) {
+					employeeResolvedRequests.add(pendingRequest);
+				}
+				
+			} catch (BusinessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			// Return the list
+			return employeeResolvedRequests;
 			
 		default:
 			response.setStatus(404);
