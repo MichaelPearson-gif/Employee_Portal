@@ -1,6 +1,8 @@
 package com.app.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,8 +12,10 @@ import javax.servlet.http.HttpSession;
 
 import com.app.exceptions.BusinessException;
 import com.app.model.Employees;
+import com.app.model.Requests;
 import com.app.service.impl.EmployeesServiceImpl;
 import com.app.service.impl.ManagersServiceImpl;
+import com.app.service.impl.RequestsServiceImpl;
 
 public class RequestHelper {
 
@@ -25,25 +29,64 @@ public class RequestHelper {
 		
 		// Client views their info
 		case "/info":
+			// Set the status code
 			response.setStatus(200);
+			
+			// Initial Employee object
 			Employees employee = new Employees();
+		
 			try {
-				 employee = new EmployeesServiceImpl().getEmployee(null);
+				
+				// Get the session attribute
+				String attribute = (String) request.getSession(false).getAttribute("email");
+				
+				// Use the service layer method .getEmployee to get the employee info from the email session attribute
+				employee = new EmployeesServiceImpl().getEmployee(attribute);
 			} catch (BusinessException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
+			// Return the employee object
 			return employee;
 			
 		// Client logs out
 		case "/logout":
 			
+			// Close the session
 			HttpSession session = request.getSession(false);
 			if(session != null) {
 				session.invalidate();
 			}
 			return "Your session has been invalidated.";
+			
+		// Client can view their pending requests
+		case "/pending/requests":
+			
+			// Set the status code 
+			response.setStatus(200);
+			
+			// Initial list of requests
+			List<Requests> employeePendingRequests = new ArrayList<>();
+			
+			// List variable that will call the service layer
+			try {
+				
+				// Get the session attribute
+				String attribute = (String) request.getSession(false).getAttribute("email");
+				
+				// List variable that will call the service layer
+				List<Requests> tempList = new RequestsServiceImpl().getPendingRequestsByEmail(attribute);
+				
+				// Loop through the tempList and append its elements to the employeePendingRequests list
+				for(Requests pendingRequest : tempList) {
+					employeePendingRequests.add(pendingRequest);
+				}
+				
+			} catch (BusinessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 		default:
 			response.setStatus(404);
