@@ -332,6 +332,18 @@ public class RequestHelper {
 			// End the case with a break
 			break;
 			
+		// Client can submit a reimbursment request
+		case "/request":
+			
+			// Get the request object parameter
+			final Requests newRequest = (Requests) request.getAttribute("newRequest");
+			
+			// Send the reimbursment request to the service layer
+			new RequestsServiceImpl().newRequest(newRequest);
+			
+			// End the case with a break
+			break;
+			
 		default:
 			response.setStatus(404);
 		
