@@ -55,4 +55,37 @@ public class EmployeeManagerRepoImpl implements EmployeeManagerRepo {
 		return correspondingEmployees;
 	}
 
+	@Override
+	public List<EmployeeManager> getRoster() throws BusinessException {
+		
+		// Initial List variable
+		List<EmployeeManager> allEmployees = new ArrayList<>();
+		
+		try (Session session = HibernateSessionFactory.getSession()) {
+			
+			// Begin a transaction
+			tx = session.beginTransaction();
+			
+			// Query the DB and append the results to the list
+			allEmployees = session.createQuery("FROM EmployeeManager, EmployeeManager.class").getResultList();
+			
+			// Commit the transaction
+			tx.commit();
+			
+		}catch (HibernateException e) {
+
+			// Log the error message
+			log.trace(e.getMessage());
+			
+			// Rollback the transaction
+			tx.rollback();
+			
+			// Throw new exception
+			throw new BusinessException("Could not retrieve data. Please check logs and connection to DB.");
+
+		}
+		
+		return allEmployees;
+	}
+
 }
