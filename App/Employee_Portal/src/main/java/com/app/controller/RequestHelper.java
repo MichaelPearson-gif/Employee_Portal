@@ -236,6 +236,34 @@ public class RequestHelper {
 			
 			// Return the list
 			return allEmployeeRequests;
+			
+		// Client (manager) gets a list of employees and their managers
+		case "employee/list":
+			
+			// Set the status code
+			response.setStatus(200);
+			
+			// Initial list variable
+			List<EmployeeManager> allEmployees = new ArrayList<>();
+			
+			try {
+				
+				// List variable that will call the service layer
+				List<EmployeeManager> tempList = new EmployeeManagerServiceImpl().getRoster();
+				
+				// Loop through the tempList and append its elements to the allEmployees list
+				for(EmployeeManager employeeList : tempList) {
+					allEmployees.add(employeeList);
+				}
+				
+				
+			} catch (BusinessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			// Return the list
+			return allEmployees;
 
 			
 		default:
