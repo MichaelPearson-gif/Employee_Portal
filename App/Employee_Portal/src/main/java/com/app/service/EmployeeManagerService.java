@@ -11,4 +11,7 @@ public interface EmployeeManagerService {
 	// Get a list of employees by their manager
 	List<EmployeeManager> getEmployeesByManager(Managers manager) throws BusinessException;
 	
+	// Get a list of all employees and managers
+	List<EmployeeManager> getRoster() throws BusinessException;
+	
 }

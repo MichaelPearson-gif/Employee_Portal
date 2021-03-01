@@ -28,4 +28,14 @@ public class EmployeeManagerServiceImpl implements EmployeeManagerService {
 		return correspondingEmployees;
 	}
 
+	@Override
+	public List<EmployeeManager> getRoster() throws BusinessException {
+		
+		// Get list from the repository layer
+		List<EmployeeManager> allEmployees = employeeManagerRepo.getRoster();
+		
+		// Return the list
+		return allEmployees;
+	}
+
 }
