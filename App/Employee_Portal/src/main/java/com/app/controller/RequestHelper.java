@@ -155,6 +155,35 @@ public class RequestHelper {
 			// Return the list
 			return managerEmployeePendingRequests;
 			
+		// Client (manager) can see all resolved requests and which manager resolved them
+		case "/resolved/requests":
+			
+			// Set the status code
+			response.setStatus(200);
+			
+			// Inititial list of requests
+			List<Requests> allResolvedRequests = new ArrayList<>();
+			
+			try {
+				
+				// List variable that will call the service layer
+				List<Requests> tempList = new RequestsServiceImpl().getResolvedRequests();
+				
+				// Loop through the tempList and append its elements to the managerEmployeePendingRequests list
+				for(Requests resolvedRequest : tempList) {
+					allResolvedRequests.add(resolvedRequest);
+				}
+				
+				
+			} catch (BusinessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			// Return the list
+			return allResolvedRequests;
+
+			
 		default:
 			response.setStatus(404);
 			return "Sorry. The resource you have requested does not exist.";
