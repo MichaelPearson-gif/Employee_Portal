@@ -282,8 +282,10 @@ public class RequestHelper {
 		
 		switch(RESOURCE) {
 		
+		// Client logs in and if it is successful they are granted a session and then sent to the appropriate home page
 		case "/login":
 			
+			// Get the parameters
 			final String email = request.getParameter("email");
 			final String password = request.getParameter("password");
 			
@@ -316,6 +318,18 @@ public class RequestHelper {
 				}
 				
 			}
+			break;
+			
+		// Client (employees) can update their personal info
+		case "/update":
+			
+			// Get the employee object parameter
+			final Employees employee = (Employees) request.getAttribute("employee");
+			
+			// Send the update to the service layer
+			new EmployeesServiceImpl().updateInfo(employee);
+			
+			// End the case with a break
 			break;
 			
 		default:
