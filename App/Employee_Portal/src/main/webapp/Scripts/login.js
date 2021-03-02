@@ -1,7 +1,7 @@
 function postLogin(){
 
     // url endpoint that will be accessed
-    let url = "http://localhost:8080/Employee_Portal/api/login"
+    let url = "http://localhost:8080/Employee_Portal/login"
 
     // Use XMLHttpRequest for AJAX
     let xhr = new XMLHttpRequest()

@@ -26,7 +26,7 @@ public class RequestHelper {
 	public static Object processGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
 		
 		final String URI = request.getRequestURI();
-		final String RESOURCE = URI.replace("/EmployeePortal/api", "");
+		final String RESOURCE = URI.replace("/Employee_Portal/api", "");
 		
 		switch(RESOURCE) {
 		
@@ -278,7 +278,7 @@ public class RequestHelper {
 	public static void processPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, BusinessException{
 		
 		final String URI = request.getRequestURI();
-		final String RESOURCE = URI.replace("/EmployeePortal/api", "");
+		final String RESOURCE = URI.replace("/Employee_Portal/api", "");
 		
 		switch(RESOURCE) {
 		
@@ -286,10 +286,10 @@ public class RequestHelper {
 		case "/login":
 			
 			// Get the parameters
-			final String email = request.getParameter("email");
-			final String password = request.getParameter("password");
+			final String email = request.getParameter("userEmail");
+			final String password = request.getParameter("userPassword");
 			
-			if(new EmployeesServiceImpl().validate(email, password)) {
+			if(new EmployeesServiceImpl().validate(email, password) == true) {
 				
 				// Grant the client a session
 				HttpSession session = request.getSession();
@@ -299,10 +299,9 @@ public class RequestHelper {
 				
 				// Redirect to the correct page
 				// Check to see if the client is a manager
-				if(new ManagersServiceImpl().getManager(email) != null) {
+				if(new EmployeesServiceImpl().getEmployee(email).getTitle().equals("Manager") | new EmployeesServiceImpl().getEmployee(email).getTitle().equals("General Manager")) {
 					
 					// Send to the managers home page
-					response.sendRedirect("/Employee_Portal/api/Pages/manager.html");
 					
 					RequestDispatcher dispatcher = request.getRequestDispatcher("/Pages/manager.html");
 					dispatcher.forward(request, response);
@@ -310,7 +309,6 @@ public class RequestHelper {
 				}else {
 					
 					// Send to the employees home page
-					response.sendRedirect("/Employee_Portal/Pages/employee.html");
 					
 					RequestDispatcher dispatcher = request.getRequestDispatcher("/Pages/employee.html");
 					dispatcher.forward(request, response);
