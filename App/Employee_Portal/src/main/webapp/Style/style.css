@@ -1,1 +1,61 @@
 @charset "ISO-8859-1";
+
+body{
+    background-color: aqua;
+}
+
+input, button{
+    /*
+     * px, em, or %?
+     * 
+     * px is a static measurement. It doesn't change based on the elements relative * to it. In essence, the size is fixed.
+     * em and % are relative measurements. em specifies that an element's size, for * instance, should be relative to the font size being used. % is also relative, * but it specifies that the size of an element is relative to the parent       * element's size.
+     */
+    border-radius: 0.5em;
+    width: 20em;
+    height: 3em;
+}
+
+button{
+    background-color: rgb(71, 212, 71);
+}
+
+/*
+ * In order to select an element(s) by its class, use the class preceded by a "."
+ */
+.container{
+    position: relative;
+   display: flex;
+   flex-direction: row;
+   row-gap: 7em;
+   margin-left: 40em;
+   margin-top: 20em;
+}
+
+/*
+ * In order to select an element by its id, use the id name preceded by the "#"     * symbol.
+ */
+#loginForm{
+    position: absolute;
+   text-align: center;
+   z-index: 10;
+}
+
+#login{
+   display: flex;
+   flex-direction: column;
+   border-radius: 0.5em;
+   border-style: groove;
+   border-width: 0.5px;
+   padding: 3em;
+   background-color: white;
+}
+
+#welcome{
+    position: absolute;
+    top: auto;
+    width: 30em;
+    height: 10em;
+    text-align: center;
+    margin-top: 0.5em;
+}
