@@ -61,6 +61,10 @@ public class RequestHelper {
 			if(session != null) {
 				session.invalidate();
 			}
+			
+			// Redirect to the login page
+//			response.sendRedirect("Employee_Portal/webapp/index.html");
+			
 			return "Your session has been invalidated.";
 			
 		// Client can view their pending requests
@@ -303,16 +307,14 @@ public class RequestHelper {
 					
 					// Send to the managers home page
 					
-					RequestDispatcher dispatcher = request.getRequestDispatcher("/Pages/manager.html");
-					dispatcher.forward(request, response);
+					response.sendRedirect("/Employee_Portal/Pages/manager.html");
 					
 				}else {
 					
 					// Send to the employees home page
 					
-					RequestDispatcher dispatcher = request.getRequestDispatcher("/Pages/employee.html");
-					dispatcher.forward(request, response);
-					
+					response.sendRedirect("/Employee_Portal/Pages/employee.html");
+										
 				}
 				
 			}
