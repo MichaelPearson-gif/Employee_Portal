@@ -323,8 +323,22 @@ public class RequestHelper {
 		// Client (employees) can update their personal info
 		case "/update":
 			
-			// Get the employee object parameter
-			final Employees employee = (Employees) request.getAttribute("employee");
+			// Get the input parameters
+			final String userEmail = request.getParameter("userEmail");
+			final String userFirstName = request.getParameter("userFirstName");
+			final String userLastName = request.getParameter("userLastName");
+			final String userGender = request.getParameter("userGender");
+			final String userTitle = request.getParameter("userTitle");
+			final String userPassword = request.getParameter("userPassword");
+			
+			// Create the employee object and set the parameters to the employee
+			Employees employee = new Employees();
+			employee.setEmail(userEmail);
+			employee.setFirstName(userFirstName);
+			employee.setLastName(userLastName);
+			employee.setGender(userGender);
+			employee.setTitle(userTitle);
+			employee.setPassword(userPassword);
 			
 			// Send the update to the service layer
 			new EmployeesServiceImpl().updateInfo(employee);
