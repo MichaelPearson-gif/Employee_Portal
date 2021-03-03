@@ -1,10 +1,36 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
-<h1>Manager Home Page</h1>
-</body>
+    <head>
+        <!--Link to the stylesheet-->
+        <link rel="stylesheet" href="../Style/style.css">
+        <title>Manager Home Page</title>
+    </head>
+    <body>
+        <h1>Welcome Manager</h1>
+
+        <!-- <a href="/logout" id="btn" role="button">Logout</a> -->
+        <form id="logout" method="GET" action="/Employee_Portal/api/logout"></form>
+        <button class="btn btn-default" form="logout">Logout</button>
+
+        <div class="container">
+            <table id="info">
+                <thead>
+                    <tr>
+                        <td>Email</td>
+                        <td>Name</td>
+                        <td>Phone #</td>
+                        <td>Gender</td>
+                        <td>Birthday</td>
+                        <td>Salary</td>
+                        <td>Title</td>
+                    </tr>
+                </thead>
+                <tbody id="employeeInfo">
+
+                </tbody>
+            </table>
+        </div>
+
+        <script src="../Scripts/employee.js"></script>
+    </body>
 </html>

@@ -1,5 +1,10 @@
 @charset "ISO-8859-1";
 
+/* html{
+    height: max-content;
+    width: max-content;
+} */
+
 body{
     background-color: aqua;
 }
@@ -15,15 +20,17 @@ input, button{
 }
 
 button{
-    background-color: rgb(71, 212, 71);
+    background-color: greenyellow;
 }
 
 .btn{
-    padding: 3%;
+    padding: 0.5%;
     background-color: black;
-    margin-top: 5%;
-    margin-bottom: 10%;
+    margin-top: 0.5%;
+    margin-bottom: 0.5%;
     color: white;
+    position: absolute;
+    right: 80%;
 }
 
 .container{
