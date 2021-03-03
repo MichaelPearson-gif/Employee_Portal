@@ -11,12 +11,26 @@
         <!-- <a href="/logout" id="btn" role="button">Logout</a> -->
         <form id="logout" method="GET" action="/Employee_Portal/api/logout"></form>
         <button class="btn btn-default" form="logout">Logout</button>
-        <hr>
 
         <div class="container">
+            <table id="info">
+                <thead>
+                    <tr>
+                        <td>Email</td>
+                        <td>Name</td>
+                        <td>Phone #</td>
+                        <td>Gender</td>
+                        <td>Birthday</td>
+                        <td>Salary</td>
+                        <td>Title</td>
+                    </tr>
+                </thead>
+                <tbody id="employeeInfo">
 
+                </tbody>
+            </table>
         </div>
 
-        <!-- <script src="../Scripts/logout.js"></script> -->
+        <script src="../Scripts/employee.js"></script>
     </body>
 </html>
