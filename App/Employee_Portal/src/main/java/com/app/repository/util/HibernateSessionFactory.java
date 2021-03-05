@@ -12,16 +12,17 @@ public class HibernateSessionFactory {
 	
 	public static Session getSession() throws HibernateException{
 		
-		// Configure and build session
-		sessionFactory = new Configuration().configure()
-				.setProperty("hibernate.connection.url", System.getenv("dburl"))
-				.setProperty("hibernate.connection.username", System.getenv("dbusername"))
-				.setProperty("hibernate.connection.password", System.getenv("dbpassword"))
-				.buildSessionFactory();
+		if(sessionFactory == null) {
 		
+			// Configure and build session
+			sessionFactory = new Configuration().configure()
+					.setProperty("hibernate.connection.url", System.getenv("dburl"))
+					.setProperty("hibernate.connection.username", System.getenv("dbusername"))
+					.setProperty("hibernate.connection.password", System.getenv("dbpassword"))
+					.buildSessionFactory();
+		}
 		// Return the current session
 		return sessionFactory.getCurrentSession();
-		
 	}
 	
 }
