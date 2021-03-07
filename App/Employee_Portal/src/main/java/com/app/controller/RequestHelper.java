@@ -25,6 +25,10 @@ public class RequestHelper {
 	
 	// Instance of service layers
 	private static EmployeesService employeesService = new EmployeesServiceImpl();
+	
+	// Instance of the object mapper
+	private static ObjectMapper mapper = new ObjectMapper();
+
 
 	// Method to process GET requests
 	public static Object processGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
@@ -127,6 +131,9 @@ public class RequestHelper {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
+			// Redirect to the employeePendingRequests.html file
+			response.sendRedirect("/Employee_Portal/Pages/employeePendingRequests.html");
 			
 			// Return the list
 			return employeeResolvedRequests;
@@ -340,17 +347,9 @@ public class RequestHelper {
 			
 			// Get the employee based on the session attribute
 			Employees employee1 = employeesService.getEmployee(emailAttribute);
-			 
-			//------------------------------------------------------------------------------------------
-			// Deserializing the JSON object using Jasckon ObjectMapper
-			
-			// Instance of the object mapper
-			ObjectMapper mapper = new ObjectMapper();
 			
 			// Deserialize the JSON
 			final Employees employeeUpdate = mapper.readValue(request.getInputStream(), Employees.class);
-			
-			//-------------------------------------------------------------------------------------------
 			
 			// set the updated info to the employee object
 			employee1.setFirstName(employeeUpdate.getFirstName());
