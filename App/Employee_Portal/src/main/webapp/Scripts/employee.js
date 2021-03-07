@@ -15,8 +15,6 @@ function getInfo(){
             // Parse the JSON object
             let info = JSON.parse(xhr.responseText)
 
-            console.log(info)
-
             // New elements that will be appended to the page
             let tr = document.createElement('tr')
             let email = document.createElement('td')
