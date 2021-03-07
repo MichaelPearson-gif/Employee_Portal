@@ -39,6 +39,11 @@ function getInfo(){
             salary.innerHTML = '$' + info.salary
             title.innerHTML = info.title
 
+            // Elements with setAttribute are elements that can be modified by the /update endpoint
+            name.setAttribute("id", "getName")
+            gender.setAttribute("id", "getGender")
+
+
             // Append all the elements together
             tr.append(email)
             tr.append(name)

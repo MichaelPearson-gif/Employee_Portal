@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +18,7 @@ import com.app.service.impl.EmployeeManagerServiceImpl;
 import com.app.service.impl.EmployeesServiceImpl;
 import com.app.service.impl.ManagersServiceImpl;
 import com.app.service.impl.RequestsServiceImpl;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class RequestHelper {
 
@@ -323,8 +323,27 @@ public class RequestHelper {
 		// Client (employees) can update their personal info
 		case "/update":
 			
-			// Get the employee object parameter
-			final Employees employee = (Employees) request.getAttribute("employee");
+			// Get the session attribute
+			String attribute = (String) request.getSession(false).getAttribute("email");
+			
+			// Get the employee based on the session attribute
+			Employees employee = new EmployeesServiceImpl().getEmployee(attribute);
+			
+			//------------------------------------------------------------------------------------------
+			// Deserializing the JSON object using Jasckon ObjectMapper
+			
+			// Instance of the object mapper
+			ObjectMapper mapper = new ObjectMapper();
+			
+			// Deserialize the JSON
+			final Employees employeeUpdate = mapper.readValue(request.getInputStream(), Employees.class);
+			
+			//-------------------------------------------------------------------------------------------
+			
+			// set the updated info to the employee object
+			employee.setFirstName(employeeUpdate.getFirstName());
+			employee.setLastName(employeeUpdate.getLastName());
+			employee.setGender(employeeUpdate.getGender());
 			
 			// Send the update to the service layer
 			new EmployeesServiceImpl().updateInfo(employee);
@@ -335,7 +354,7 @@ public class RequestHelper {
 			// End the case with a break
 			break;
 			
-		// Client can submit a reimbursment request
+		// Client can submit a reimbursement request
 		case "/request":
 			
 			// Get the request object parameter
