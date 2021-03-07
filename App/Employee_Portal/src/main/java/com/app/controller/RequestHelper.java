@@ -14,6 +14,7 @@ import com.app.model.EmployeeManager;
 import com.app.model.Employees;
 import com.app.model.Managers;
 import com.app.model.Requests;
+import com.app.service.EmployeesService;
 import com.app.service.impl.EmployeeManagerServiceImpl;
 import com.app.service.impl.EmployeesServiceImpl;
 import com.app.service.impl.ManagersServiceImpl;
@@ -21,6 +22,9 @@ import com.app.service.impl.RequestsServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class RequestHelper {
+	
+	// Instance of service layers
+	private static EmployeesService employeesService = new EmployeesServiceImpl();
 
 	// Method to process GET requests
 	public static Object processGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
@@ -292,18 +296,22 @@ public class RequestHelper {
 			// Get the parameters
 			final String email = request.getParameter("userEmail");
 			final String password = request.getParameter("userPassword");
-			
-			if(new EmployeesServiceImpl().validate(email, password) == true) {
+						
+			if(employeesService.validate(email, password) == true) {
+				
+				// Get the employee's title
+				String title = employeesService.getEmployee(email).getTitle();
 				
 				// Grant the client a session
 				HttpSession session = request.getSession();
 				
-				// Set the client email as a session attribute
+				// Set the client email and title as session attributes
 				session.setAttribute("email", email);
+				session.setAttribute("title", title);
 				
 				// Redirect to the correct page
 				// Check to see if the client is a manager
-				if(new EmployeesServiceImpl().getEmployee(email).getTitle().equals("Manager") | new EmployeesServiceImpl().getEmployee(email).getTitle().equals("General Manager")) {
+				if(title.equals("Manager") | title.equals("General Manager")) {
 					
 					// Send to the managers home page
 					
@@ -317,6 +325,9 @@ public class RequestHelper {
 										
 				}
 				
+			}else {
+				// If .validate is false redirect back to the login page
+				response.sendRedirect("/Employee_Portal/Pages/index.html");
 			}
 			break;
 			
@@ -327,8 +338,8 @@ public class RequestHelper {
 			String attribute = (String) request.getSession(false).getAttribute("email");
 			
 			// Get the employee based on the session attribute
-			Employees employee = new EmployeesServiceImpl().getEmployee(attribute);
-			
+			Employees employee1 = employeesService.getEmployee(attribute);
+			 
 			//------------------------------------------------------------------------------------------
 			// Deserializing the JSON object using Jasckon ObjectMapper
 			
@@ -341,12 +352,12 @@ public class RequestHelper {
 			//-------------------------------------------------------------------------------------------
 			
 			// set the updated info to the employee object
-			employee.setFirstName(employeeUpdate.getFirstName());
-			employee.setLastName(employeeUpdate.getLastName());
-			employee.setGender(employeeUpdate.getGender());
+			employee1.setFirstName(employeeUpdate.getFirstName());
+			employee1.setLastName(employeeUpdate.getLastName());
+			employee1.setGender(employeeUpdate.getGender());
 			
 			// Send the update to the service layer
-			new EmployeesServiceImpl().updateInfo(employee);
+			new EmployeesServiceImpl().updateInfo(employee1);
 			
 			// Return back to the same page
 			response.sendRedirect("/Employee_Portal/Pages/employee.html");

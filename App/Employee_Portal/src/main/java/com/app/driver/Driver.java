@@ -16,8 +16,8 @@ public class Driver {
 
 	public static void main(String[] args) {
 		
-		EmployeeManagerService employeeManagerService = new EmployeeManagerServiceImpl();
-		EmployeesService employeesService = new EmployeesServiceImpl();
+//		EmployeeManagerService employeeManagerService = new EmployeeManagerServiceImpl();
+//		EmployeesService employeesService = new EmployeesServiceImpl();
 		
 //		Employees employee = new Employees("sgoldberg@gmail.com", "Sarah", "Goldberg", 4432100987L, "F", new Date(195876), 505982341, 78500, "Manager", "50Shadesofmoney");
 //		
@@ -36,13 +36,13 @@ public class Driver {
 //			e.printStackTrace();
 //		}
 		
-		try {
-			boolean employee = employeesService.validate("jsmith@gmail.com", "P2theword");
-			System.out.println(employee);
-		} catch (BusinessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			boolean employee = employeesService.validate("jsmith@gmail.com", "P2theword");
+//			System.out.println(employee);
+//		} catch (BusinessException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
 
 	}
