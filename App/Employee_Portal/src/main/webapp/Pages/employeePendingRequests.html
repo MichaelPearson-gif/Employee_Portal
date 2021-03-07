@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!--Link to the stylesheet-->
+        <link rel="stylesheet" href="../Style/style.css">
+        <title>Pending Reimbursment Requests</title>
+
+    </head>
+    <body>
+        <div id="newRequest">
+            <input type="number" id="amount" placeholder="$0.00">
+            <button id="submitRequest">Submit</button>
+        </div>
+        <div id="container">
+            <table id="pendingRequests">
+                <thead>
+                    <tr>
+                        <td>Request ID #</td>
+                        <td>Amount</td>
+                        <td>Status</td>
+                        <td>Date</td>
+                    </tr>
+                </thead>
+                <tbody id="pendingRequestInfo">
+
+                </tbody>
+            </table>
+        </div>
+        <!--Scripts that will be used on this page-->
+        <script src="../Scripts/submit_request.js"></script>
+        <script src="../Scripts/pending_requests.js"></script>
+    </body>
+</html>

@@ -69,7 +69,7 @@ public class RequestHelper {
 			// Redirect to the login page
 //			response.sendRedirect("Employee_Portal/webapp/index.html");
 			
-			return "Your session has been invalidated.";
+			return null;
 			
 		// Client can view their pending requests
 		case "employee/pending/requests":
