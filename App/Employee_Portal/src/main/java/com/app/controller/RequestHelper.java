@@ -334,11 +334,12 @@ public class RequestHelper {
 		// Client (employees) can update their personal info
 		case "/update":
 			
-			// Get the session attribute
-			String attribute = (String) request.getSession(false).getAttribute("email");
+			// Get the email and title session attributes
+			String emailAttribute = (String) request.getSession(false).getAttribute("email");
+			String titleAttribute = (String) request.getSession(false).getAttribute("title");
 			
 			// Get the employee based on the session attribute
-			Employees employee1 = employeesService.getEmployee(attribute);
+			Employees employee1 = employeesService.getEmployee(emailAttribute);
 			 
 			//------------------------------------------------------------------------------------------
 			// Deserializing the JSON object using Jasckon ObjectMapper
@@ -357,10 +358,22 @@ public class RequestHelper {
 			employee1.setGender(employeeUpdate.getGender());
 			
 			// Send the update to the service layer
-			new EmployeesServiceImpl().updateInfo(employee1);
+			employeesService.updateInfo(employee1);
 			
-			// Return back to the same page
-			response.sendRedirect("/Employee_Portal/Pages/employee.html");
+			// Return back to the same page the client was on based on the title session attribute
+			if(titleAttribute.equals("Manager") | titleAttribute.equals("General Manager")) {
+				
+				// Send to the managers home page
+				
+				response.sendRedirect("/Employee_Portal/Pages/manager.html");
+				
+			}else {
+				
+				// Send to the employees home page
+				
+				response.sendRedirect("/Employee_Portal/Pages/employee.html");
+									
+			}
 			
 			// End the case with a break
 			break;
