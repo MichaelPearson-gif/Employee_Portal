@@ -14,6 +14,7 @@ import com.app.model.EmployeeManager;
 import com.app.model.Employees;
 import com.app.model.Managers;
 import com.app.model.Requests;
+import com.app.service.EmployeeManagerService;
 import com.app.service.EmployeesService;
 import com.app.service.ManagersService;
 import com.app.service.RequestsService;
@@ -29,6 +30,7 @@ public class RequestHelper {
 	private static EmployeesService employeesService = new EmployeesServiceImpl();
 	private static RequestsService requestsService = new RequestsServiceImpl();
 	private static ManagersService managersService = new ManagersServiceImpl();
+	private static EmployeeManagerService employeeManagerService = new EmployeeManagerServiceImpl();
 	
 	// Instance of the object mapper
 	private static ObjectMapper mapper = new ObjectMapper();
@@ -94,7 +96,7 @@ public class RequestHelper {
 				String attribute = (String) request.getSession(false).getAttribute("email");
 				
 				// List variable that will call the service layer
-				List<Requests> tempList = new RequestsServiceImpl().getPendingRequestsByEmail(attribute);
+				List<Requests> tempList = requestsService.getPendingRequestsByEmail(attribute);
 				
 				// Loop through the tempList and append its elements to the employeePendingRequests list
 				for(Requests pendingRequest : tempList) {
@@ -124,7 +126,7 @@ public class RequestHelper {
 				String attribute = (String) request.getSession(false).getAttribute("email");
 				
 				// List variable that will call the service layer
-				List<Requests> tempList = new RequestsServiceImpl().getResolvedRequestsByEmail(attribute);
+				List<Requests> tempList = requestsService.getResolvedRequestsByEmail(attribute);
 				
 				// Loop through the tempList and append its elements to the employeeResolvedRequests list
 				for(Requests resolvedRequests : tempList) {
@@ -154,10 +156,10 @@ public class RequestHelper {
 				String attribute = (String) request.getSession(false).getAttribute("email");
 				
 				// Get the corresponding manager object
-				Managers manager = new ManagersServiceImpl().getManager(attribute);
+				Managers manager = managersService.getManager(attribute);
 				
 				// List variable that will call the service layer
-				List<Requests> tempList = new RequestsServiceImpl().getPendingRequestsByManager(manager);
+				List<Requests> tempList = requestsService.getPendingRequestsByManager(manager);
 				
 				// Loop through the tempList and append its elements to the managerEmployeePendingRequests list
 				for(Requests managerPendingRequest : tempList) {
@@ -185,7 +187,7 @@ public class RequestHelper {
 			try {
 				
 				// List variable that will call the service layer
-				List<Requests> tempList = new RequestsServiceImpl().getResolvedRequests();
+				List<Requests> tempList = requestsService.getResolvedRequests();
 				
 				// Loop through the tempList and append its elements to the managerEmployeePendingRequests list
 				for(Requests resolvedRequest : tempList) {
@@ -219,10 +221,10 @@ public class RequestHelper {
 				String attribute = (String) request.getSession(false).getAttribute("email");
 				
 				// Get the client's manager info
-				Managers manager = new ManagersServiceImpl().getManager(attribute);
+				Managers manager = managersService.getManager(attribute);
 				
 				// Get list of employees for the manager
-				List<EmployeeManager> employeeList = new EmployeeManagerServiceImpl().getEmployeesByManager(manager);
+				List<EmployeeManager> employeeList = employeeManagerService.getEmployeesByManager(manager);
 				
 				// Iterate through the employeeList
 				for(EmployeeManager employeeManager : employeeList) {
@@ -231,7 +233,7 @@ public class RequestHelper {
 					if(employeeManager.getEmployee().getEmail().equals(employeeEmail)) {
 						
 						// List variable that will call the service layer
-						List<Requests> tempList = new RequestsServiceImpl().getEmployeeRequests(employeeEmail);
+						List<Requests> tempList = requestsService.getEmployeeRequests(employeeEmail);
 						
 						// Iterate through the tempList and append to the allEmployeeRequests
 						for(Requests employeeRequests : tempList) {
@@ -265,7 +267,7 @@ public class RequestHelper {
 			try {
 				
 				// List variable that will call the service layer
-				List<EmployeeManager> tempList = new EmployeeManagerServiceImpl().getRoster();
+				List<EmployeeManager> tempList = employeeManagerService.getRoster();
 				
 				// Loop through the tempList and append its elements to the allEmployees list
 				for(EmployeeManager employeeList : tempList) {
@@ -426,6 +428,64 @@ public class RequestHelper {
 			
 			// End the case with a break
 			break;
+			
+		// Client (manager) can see all requests from one of their employees
+//		case "/employee/requests":
+//				
+//			// Set the status code
+//			response.setStatus(200);
+//			
+//			// Deserialize the JSON
+//			final Employees inputEmployee = mapper.readValue(request.getInputStream(), Employees.class);
+//			
+//			// Get the inputted email
+//			final String inputEmail = inputEmployee.getEmail();
+//				
+//			// Inital list variable
+//			List<Requests> allEmployeeRequests = new ArrayList<>();
+//				
+//			try {
+//					
+//				// Get the session attribute
+//				String attribute = (String) request.getSession(false).getAttribute("email");
+//					
+//				// Get the client's manager info
+//				Managers currentManager = managersService.getManager(attribute);
+//					
+//				// Get list of employees for the manager
+//				List<EmployeeManager> employeeList = employeeManagerService.getEmployeesByManager(currentManager);
+//					
+//				// Iterate through the employeeList
+//				for(EmployeeManager employeeManager : employeeList) {
+//						
+//					// Check if the employee that the client requested for is one of their employees
+//					if(employeeManager.getEmployee().getEmail().equals(inputEmail)) {
+//							
+//						// List variable that will call the service layer
+//						List<Requests> tempList = requestsService.getEmployeeRequests(inputEmail);
+//							
+//						// Iterate through the tempList and append to the allEmployeeRequests
+//						for(Requests employeeRequests : tempList) {
+//							allEmployeeRequests.add(employeeRequests);
+//						}
+//						
+//						// Redirect the page
+//						response.sendRedirect("/Employee_Portal/Pages/singleEmployeeRequests.html");
+//							
+//					}else {
+//						response.setStatus(404);
+//						System.out.println("Sorry the employee you specified is not one of your employees");
+//					}
+//						
+//				}
+//					
+//			}catch (BusinessException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//				
+//			break;
+
 			
 		default:
 			response.setStatus(404);

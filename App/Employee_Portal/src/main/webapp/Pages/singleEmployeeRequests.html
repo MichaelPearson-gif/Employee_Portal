@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!--Link to the stylesheet-->
+        <link rel="stylesheet" href="../Style/style.css">
+        <title>Find Reimbursment Requests By Employee</title>
+
+    </head>
+    <body>
+        <h1>View all Requests for an Employee</h1>
+        <div id="getEmployee">
+            <input type="email" id="employeeEmail" placeholder="email@gmail.com">
+            <button id="employeeRequest">Submit</button>
+        </div>
+        <div id="container">
+            <table id="allRequestsForEmployee">
+                <thead>
+                    <tr>
+                        <td>Request ID #</td>
+                        <td>Employee</td>
+                        <td>Amount</td>
+                        <td>Status</td>
+                        <td>Date</td>
+                    </tr>
+                </thead>
+                <tbody id="allRequestsForEmployeeInfo">
+
+                </tbody>
+            </table>
+        </div>
+        <!--Scripts that will be used on this page-->
+        <script src="../Scripts/single_employee_requests.js"></script>
+    </body>
+</html>
