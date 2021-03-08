@@ -45,8 +45,26 @@ public class ManagersServiceImpl implements ManagersService {
 	@Override
 	public Managers getManager(String email) throws BusinessException {
 		
-		// Create a manager object using the repository layer method getManager
-		Managers manager = managersRepo.getManager(email);
+		// Create a manager object 
+		Managers manager = new Managers();
+		
+		try {
+			
+			// Get a list of managers
+			List<Managers> managers = managersRepo.getManagers();
+			
+			// Filter the list to get the manager with the matching email
+			managers.removeIf((m) -> !m.getEmployee().getEmail().equals(email));
+			
+			// Set the manager object to the only manager left in the list
+			for(Managers winnerManager : managers) {
+				manager = winnerManager;
+			}
+			
+		} catch (EmptyListException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		// Return the manager object
 		return manager;

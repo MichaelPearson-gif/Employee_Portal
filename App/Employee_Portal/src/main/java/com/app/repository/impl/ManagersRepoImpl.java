@@ -79,7 +79,7 @@ public class ManagersRepoImpl implements ManagersRepo {
 			log.trace(e.getMessage());
 			
 			// Rollback the transaction
-			tx.rollback();
+//			tx.rollback();
 			
 			// Throw new exception
 			throw new BusinessException("Could not find a manager with the email: " + email);
