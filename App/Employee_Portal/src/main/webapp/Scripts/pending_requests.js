@@ -1,7 +1,7 @@
 function getPendingRequests(){
 
     // url endpoint tha will be accessed
-    let url = "http://localhost:8080/Employee_Portal/api/employee/resolved/requests"
+    let url = "http://localhost:8080/Employee_Portal/api/employee/pending/requests"
 
     // Use XMLHttpRequest for AJAX
     let xhr = new XMLHttpRequest()
@@ -15,6 +15,8 @@ function getPendingRequests(){
 
             // Parse the JSON object
             let pendingRequests = JSON.parse(xhr.responseText)
+
+            console.log(pendingRequests)
 
             // Iterate through the data
             for(let pr of pendingRequests){
@@ -30,7 +32,7 @@ function getPendingRequests(){
                 let parsedDate = new Date(pr.date)
 
                 // Populate the new elements with the data
-                requestID.innerHTML = pr.requestID
+                requestID.innerHTML = pr.requestId
                 amount.innerHTML = '$'+ pr.amount
                 status.innerHTML = pr.status
                 date.innerHTML = parsedDate.getMonth() + '-' + parsedDate.getDay() + '-' + parsedDate.getFullYear()

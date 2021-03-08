@@ -9,8 +9,14 @@
         <h1>Welcome Valued Employee</h1>
 
         <!-- <a href="/logout" id="btn" role="button">Logout</a> -->
-        <form id="logout" method="GET" action="/Employee_Portal/api/logout"></form>
-        <button class="btn btn-default" form="logout">Logout</button>
+        <div id="navigation">
+            <form id="logout" method="GET" action="/Employee_Portal/api/logout"></form>
+            <button class="btn btn-default" form="logout">Logout</button>
+
+            <br /><br />
+    
+            <a href="http://localhost:8080/Employee_Portal/Pages/employeePendingRequests.html" class="btn btn-default" role="button">View Pending Requests</a>
+        </div>
 
         <div class="container">
             <table id="info">

@@ -76,7 +76,7 @@ public class RequestHelper {
 			return null;
 			
 		// Client can view their pending requests
-		case "employee/pending/requests":
+		case "/employee/pending/requests":
 			
 			// Set the status code 
 			response.setStatus(200);
@@ -103,13 +103,13 @@ public class RequestHelper {
 			}
 			
 			// Redirect to the employeePendingRequests.html file
-			response.sendRedirect("/Employee_Portal/Pages/employeePendingRequests.html");
+//			response.sendRedirect("/Employee_Portal/Pages/employeePendingRequests.html");
 			
 			// Return the list
 			return employeePendingRequests;
 			
 		// Client can view all of their resolved requests
-		case "employee/resolved/requests":
+		case "/employee/resolved/requests":
 			
 			// Set the status code
 			response.setStatus(200);

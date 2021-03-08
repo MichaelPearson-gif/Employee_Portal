@@ -46,10 +46,10 @@ public class RequestsServiceImpl implements RequestsService {
 			List<Requests> filteredRequests = requestsRepo.getRequests();
 			
 			// Filter the list by employee email
-			filteredRequests.removeIf((f) -> f.getEmployee().getEmail().equals(email));
+			filteredRequests.removeIf((f) -> !f.getEmployee().getEmail().equals(email));
 			
 			// Filter by status of request to only pending requests
-			filteredRequests.removeIf((f) -> f.getStatus().equals("Pending"));
+			filteredRequests.removeIf((f) -> !f.getStatus().equals("Pending"));
 			
 			// Append the employeePendingRequests with elements of the filtered list
 			for(Requests request : filteredRequests) {
@@ -77,10 +77,10 @@ public class RequestsServiceImpl implements RequestsService {
 			List<Requests> filteredRequests = requestsRepo.getRequests();
 			
 			// Filter the list by employee email
-			filteredRequests.removeIf((f) -> f.getEmployee().getEmail().equals(email));
+			filteredRequests.removeIf((f) -> !f.getEmployee().getEmail().equals(email));
 			
 			// Filter by status of request to requests that are not pending
-			filteredRequests.removeIf((f) -> !f.getStatus().equals("Pending"));
+			filteredRequests.removeIf((f) -> f.getStatus().equals("Pending"));
 			
 			// Append the employeePendingRequests with elements of the filtered list
 			for(Requests request : filteredRequests) {
@@ -108,7 +108,7 @@ public class RequestsServiceImpl implements RequestsService {
 			List<Requests> filteredRequests = requestsRepo.getRequests();
 			
 			// Filter by status of request to requests that are not pending
-			filteredRequests.removeIf((f) -> !f.getStatus().equals("Pending"));
+			filteredRequests.removeIf((f) -> f.getStatus().equals("Pending"));
 			
 			// Append the employeePendingRequests with elements of the filtered list
 			for(Requests request : filteredRequests) {
@@ -137,7 +137,7 @@ public class RequestsServiceImpl implements RequestsService {
 			List<Requests> filteredRequests = requestsRepo.getRequests();
 			
 			// Filter the list by employee email
-			filteredRequests.removeIf((f) -> f.getEmployee().getEmail().equals(email));
+			filteredRequests.removeIf((f) -> !f.getEmployee().getEmail().equals(email));
 			
 			// Append the employeePendingRequests with elements of the filtered list
 			for(Requests request : filteredRequests) {
@@ -183,10 +183,10 @@ public class RequestsServiceImpl implements RequestsService {
 				List<Requests> filteredRequests = requestsRepo.getRequests();
 				
 				// Filter the list by employee email
-				filteredRequests.removeIf((f) -> f.getEmployee().getEmail().equals(email));
+				filteredRequests.removeIf((f) -> !f.getEmployee().getEmail().equals(email));
 				
 				// Filter by status of request to requests that are not pending
-				filteredRequests.removeIf((f) -> f.getStatus().equals("Pending"));
+				filteredRequests.removeIf((f) -> !f.getStatus().equals("Pending"));
 				
 				// Append the employeePendingRequests with elements of the filtered list
 				for(Requests request : filteredRequests) {
