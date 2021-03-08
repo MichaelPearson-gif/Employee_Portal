@@ -226,11 +226,16 @@ public class RequestHelper {
 				// Get list of employees for the manager
 				List<EmployeeManager> employeeList = employeeManagerService.getEmployeesByManager(manager);
 				
+				System.out.println("1. List of employees and managers: " + employeeList);
+				
 				// Iterate through the employeeList
 				for(EmployeeManager employeeManager : employeeList) {
 					
+					System.out.println("2. Getting Email: " + employeeManager.getEmployee().getEmail());
+					
 					// Check if the employee that the client requested for is one of their employees
 					if(employeeManager.getEmployee().getEmail().equals(employeeEmail)) {
+						
 						
 						// List variable that will call the service layer
 						List<Requests> tempList = requestsService.getEmployeeRequests(employeeEmail);
@@ -240,11 +245,8 @@ public class RequestHelper {
 							allEmployeeRequests.add(employeeRequests);
 						}
 						
-					}else {
-						response.setStatus(404);
-						return "Sorry the employee you specified is not one of your employees";
-					}
 					
+					}
 				}
 				
 			}catch (BusinessException e) {

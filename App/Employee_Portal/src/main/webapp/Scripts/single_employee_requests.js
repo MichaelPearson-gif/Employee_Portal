@@ -1,23 +1,16 @@
-// function Employee(email){
-//     this.email = email
-// }
-
 function getRequestsofAnEmployee(){
 
+    // Grab the email
+    let employeeEmail = document.getElementById('employeeEmail').value
+
     // url endpoint tha will be accessed
-    let url = "http://localhost:8080/Employee_Portal/api/employee/requests"
+    let url = "http://localhost:8080/Employee_Portal/api/employee/requests?employeeEmail=" + employeeEmail
 
     // Use XMLHttpRequest for AJAX
     let xhr = new XMLHttpRequest()
 
     // Grab the tbody element by it's id
     let tbody = document.getElementById("allRequestsForEmployeeInfo")
-
-    // Grab the email
-    let employeeEmail = document.getElementById('employeeEmail')
-
-    // Object to send back to the server
-    // let employee1 = new Employee(email)
 
     // Manipulate the DOM when the ready state is 4
     xhr.onreadystatechange = function(){
@@ -63,12 +56,12 @@ function getRequestsofAnEmployee(){
     }
 
     xhr.open("GET", url)
-    xhr.send(employeeEmail)
+    xhr.send()
 
 }
 
 // Load the data when the button is clicked
-let requestSubmit = document.getElementById('employeeRequest')
+// let requestSubmit = document.getElementById('employeeRequest')
 
 // Event Listener
-requestSubmit.addEventListener("click", getRequestsofAnEmployee)
+// requestSubmit.addEventListener("click", getRequestsofAnEmployee)
