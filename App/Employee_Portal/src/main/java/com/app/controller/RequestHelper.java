@@ -71,7 +71,7 @@ public class RequestHelper {
 			}
 			
 			// Redirect to the login page
-//			response.sendRedirect("Employee_Portal/webapp/index.html");
+			response.sendRedirect("/Employee_Portal/index.html");
 			
 			return null;
 			
@@ -101,9 +101,6 @@ public class RequestHelper {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			// Redirect to the employeePendingRequests.html file
-//			response.sendRedirect("/Employee_Portal/Pages/employeePendingRequests.html");
 			
 			// Return the list
 			return employeePendingRequests;
