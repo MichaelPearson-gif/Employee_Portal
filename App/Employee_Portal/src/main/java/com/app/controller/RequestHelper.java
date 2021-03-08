@@ -102,6 +102,9 @@ public class RequestHelper {
 				e.printStackTrace();
 			}
 			
+			// Redirect to the employeePendingRequests.html file
+			response.sendRedirect("/Employee_Portal/Pages/employeePendingRequests.html");
+			
 			// Return the list
 			return employeePendingRequests;
 			
@@ -131,9 +134,6 @@ public class RequestHelper {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			// Redirect to the employeePendingRequests.html file
-			response.sendRedirect("/Employee_Portal/Pages/employeePendingRequests.html");
 			
 			// Return the list
 			return employeeResolvedRequests;
@@ -380,11 +380,20 @@ public class RequestHelper {
 		// Client can submit a reimbursement request
 		case "/request":
 			
-			// Get the request object parameter
-			final Requests newRequest = (Requests) request.getAttribute("newRequest");
+			// Get the email session attribute
+			String employeeEmail = (String) request.getSession(false).getAttribute("email");
+			
+			// Deserialize the JSON
+			Requests newRequest = mapper.readValue(request.getInputStream(), Requests.class);
+			
+			// Set the email field
+			newRequest.setEmployee(employeesService.getEmployee(employeeEmail));
 			
 			// Send the reimbursment request to the service layer
 			new RequestsServiceImpl().newRequest(newRequest);
+			
+			// Redirect to the employeePendingRequests.html file
+			response.sendRedirect("/Employee_Portal/Pages/employeePendingRequests.html");
 			
 			// End the case with a break
 			break;
