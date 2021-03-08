@@ -254,7 +254,7 @@ public class RequestHelper {
 			return allEmployeeRequests;
 			
 		// Client (manager) gets a list of employees and their managers
-		case "employee/list":
+		case "/employee/list":
 			
 			// Set the status code
 			response.setStatus(200);

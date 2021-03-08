@@ -1,5 +1,6 @@
 package com.app.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -16,6 +17,7 @@ public class EmployeeManager {
 	// Both fields are foreign keys to different tables with their own relationships, so I will need to map those correctly
 	
 	@Id
+	@Column
 	private int id;
 	
 	@OneToOne

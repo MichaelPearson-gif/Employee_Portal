@@ -67,7 +67,7 @@ public class EmployeeManagerRepoImpl implements EmployeeManagerRepo {
 			tx = session.beginTransaction();
 			
 			// Query the DB and append the results to the list
-			allEmployees = session.createQuery("FROM EmployeeManager, EmployeeManager.class").getResultList();
+			allEmployees = session.createQuery("FROM EmployeeManager", EmployeeManager.class).getResultList();
 			
 			// Commit the transaction
 			tx.commit();
