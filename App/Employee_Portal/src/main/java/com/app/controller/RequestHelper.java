@@ -383,7 +383,7 @@ public class RequestHelper {
 			// Get the email session attribute
 			String employeeEmail = (String) request.getSession(false).getAttribute("email");
 			
-			// Deserialize the JSON
+			// new Requests object
 			Requests newRequest = mapper.readValue(request.getInputStream(), Requests.class);
 			
 			// Set the email field

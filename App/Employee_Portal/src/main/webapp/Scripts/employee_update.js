@@ -1,4 +1,4 @@
-// Create a JS version of the employee object with a constructor
+// Create a JS version of the employee object
 function Employee(firstName, lastName, gender){
     this.firstName = firstName
     this.lastName = lastName
@@ -14,10 +14,6 @@ function updateInfo(){
     // Get the elements from the table with an id
     let getName = document.getElementById("getName").innerHTML
     let getGender = document.getElementById("getGender").innerHTML
-
-    // Print to the console 
-    console.log(getName)
-    console.log(getGender)
 
     // Split the string name. It will automatically made into an array of size 2
     let nameArray = getName.split(" ")
@@ -51,15 +47,9 @@ function updateInfo(){
     let lastName = inputArray[1]
     let gender = inputArray[2]
 
-    // Print the elements to the console to double check
-    console.log(firstName)
-    console.log(lastName)
-    console.log(gender)
-
     // Object to be sent back to the server
     let employee = new Employee(firstName, lastName, gender)
 
-    console.log(employee)
     // Ready State
     xhr.onreadystatechange = function(){
         if(xhr.status === 200 && xhr.readyState === 4){
