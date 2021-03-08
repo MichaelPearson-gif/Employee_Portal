@@ -212,4 +212,14 @@ public class RequestsServiceImpl implements RequestsService {
 
 	}
 
+	@Override
+	public Requests getRequestById(int requestId) throws BusinessException {
+		
+		// Request object that references the Repository layer
+		Requests request = requestsRepo.getRequestById(requestId);
+		
+		// Return the request object
+		return request;
+	}
+
 }

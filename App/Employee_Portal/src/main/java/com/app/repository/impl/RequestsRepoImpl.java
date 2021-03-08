@@ -132,4 +132,37 @@ public class RequestsRepoImpl implements RequestsRepo {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public Requests getRequestById(int requestId) throws BusinessException {
+		
+		// Request object
+		Requests request = new Requests();
+		
+		try (Session session = HibernateSessionFactory.getSession()) {
+			
+			// Begin a transaction
+			tx = session.beginTransaction();
+			
+			// Query the DB and get the request by it's id
+			request = session.get(Requests.class, requestId);
+			
+			// Commit the transaction
+			tx.commit();
+			
+		}catch (HibernateException e) {
+
+			// Log the error message
+			log.trace(e.getMessage());
+			
+			// Rollback the transaction
+			tx.rollback();
+			
+			// Throw new exception
+			throw new BusinessException("Could not find a request with an id of " + requestId);
+
+		}
+		
+		return request;
+	}
 }

@@ -20,4 +20,7 @@ public interface RequestsRepo {
 	// Managers can view all reciept images
 	List<String> recieptImages();
 	
+	// Get a request by it's id
+	Requests getRequestById(int requestId) throws BusinessException;
+	
 }

@@ -29,4 +29,7 @@ public interface RequestsService {
 	// Managers can approve or deny pending requests
 	void updateRequests(Requests request) throws BusinessException;
 	
+	// Get a request by it's id
+	Requests getRequestById(int requestId) throws BusinessException;
+	
 }

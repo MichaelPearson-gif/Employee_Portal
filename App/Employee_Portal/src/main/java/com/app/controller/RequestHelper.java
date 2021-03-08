@@ -15,6 +15,8 @@ import com.app.model.Employees;
 import com.app.model.Managers;
 import com.app.model.Requests;
 import com.app.service.EmployeesService;
+import com.app.service.ManagersService;
+import com.app.service.RequestsService;
 import com.app.service.impl.EmployeeManagerServiceImpl;
 import com.app.service.impl.EmployeesServiceImpl;
 import com.app.service.impl.ManagersServiceImpl;
@@ -25,6 +27,8 @@ public class RequestHelper {
 	
 	// Instance of service layers
 	private static EmployeesService employeesService = new EmployeesServiceImpl();
+	private static RequestsService requestsService = new RequestsServiceImpl();
+	private static ManagersService managersService = new ManagersServiceImpl();
 	
 	// Instance of the object mapper
 	private static ObjectMapper mapper = new ObjectMapper();
@@ -387,7 +391,7 @@ public class RequestHelper {
 			newRequest.setEmployee(employeesService.getEmployee(employeeEmail));
 			
 			// Send the reimbursment request to the service layer
-			new RequestsServiceImpl().newRequest(newRequest);
+			requestsService.newRequest(newRequest);
 			
 			// Redirect to the employeePendingRequests.html file
 			response.sendRedirect("/Employee_Portal/Pages/employeePendingRequests.html");
@@ -398,11 +402,27 @@ public class RequestHelper {
 		// Client (managers) can approve or deny requests
 		case "/resolving":
 			
-			// Get the request object parameter
-			final Requests updateRequest = (Requests) request.getAttribute("updateRequest");
+			// Get the email session attribute
+			String managerEmail = (String) request.getSession(false).getAttribute("email");
+			
+			// Get the manager based on the session attribute
+			Managers manager = managersService.getManager(managerEmail);
+			
+			// Deserialize the JSON
+			final Requests updateRequest = mapper.readValue(request.getInputStream(), Requests.class);
+			
+			// Get the request by it's id
+			Requests request1 = requestsService.getRequestById(updateRequest.getRequestId());
+			
+			// Set the manager and status to request1
+			request1.setManager(manager);
+			request1.setStatus(updateRequest.getStatus());
 			
 			// Send the update to the service layer
-			new RequestsServiceImpl().updateRequests(updateRequest);
+			requestsService.updateRequests(request1);
+			
+			// Redirect back to viewing all of the manager's employee's pending requests
+			response.sendRedirect("/Employee_Portal/Pages/myEmployeesPendingRequests.html");
 			
 			// End the case with a break
 			break;
